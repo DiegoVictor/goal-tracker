@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Navigation from './navigation';
-import { Style } from './themes/default';
+import { Style } from './themes/global';
 
 ReactDOM.render(
   <React.StrictMode>
