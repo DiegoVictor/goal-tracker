@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as yup from 'yup';
+import Welcome from './components/welcome';
 import { Container } from './styles';
 
 const schema = yup.object().shape({
@@ -15,6 +16,8 @@ export default function Home() {
 
   return (
     <Container>
+      <Welcome>
+      </Welcome>
     </Container>
   );
 }
