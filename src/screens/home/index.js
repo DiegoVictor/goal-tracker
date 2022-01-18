@@ -1,5 +1,8 @@
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+import { SHA3 } from 'crypto-js';
+
 import Welcome from './components/welcome';
 import { Container } from './styles';
 
