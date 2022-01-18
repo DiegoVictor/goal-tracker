@@ -38,6 +38,19 @@ export default function Home() {
     [email]
   );
 
+  useEffect(() => {
+    if (
+      localStorage.current_session &&
+      localStorage.current_session.length > 0
+    ) {
+      navigate('/dashboard', {
+        state: {
+          key: localStorage.current_session,
+        },
+      });
+    }
+  }, []);
+
   return (
     <Container>
       <Welcome>
