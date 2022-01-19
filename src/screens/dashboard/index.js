@@ -34,6 +34,9 @@ export default function Dashboard() {
     }
   }, [userKey, userData]);
   const context = useMemo(() => {
+    return {
+      goals,
+    };
   }, [userData, goals]);
 
   return (
