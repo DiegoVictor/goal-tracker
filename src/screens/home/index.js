@@ -7,6 +7,8 @@ import { SHA3 } from 'crypto-js';
 import Input from '../../components/input';
 import Welcome from './components/welcome';
 import Button from '../../components/button';
+import Help from '../../components/help';
+import Error from '../../components/error';
 import { Container } from './styles';
 
 const schema = yup.object().shape({
@@ -75,6 +77,13 @@ export default function Home() {
               setEmail(event.target.value.toLowerCase().trim());
             }}
             placeholder="Type your best email"
+            help={
+              error ? (
+                <Error text={error} />
+              ) : (
+                <Help text="Your email will not be used to any kind of ads, just to keep your goals stored" />
+              )
+            }
           />
         </form>
       </Welcome>
