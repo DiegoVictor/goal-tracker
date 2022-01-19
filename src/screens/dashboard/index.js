@@ -24,6 +24,14 @@ export default function Dashboard() {
       setUserData(data);
     }
   }, [userKey]);
+
+  const [goals, setGoals] = useState([]);
+  useEffect(() => {
+    if (userKey) {
+      localStorage.setItem(userKey, JSON.stringify(userData));
+      setGoals(userData.goals);
+    }
+  }, [userKey, userData]);
   return (
       <Container>
       </Container>
