@@ -16,6 +16,14 @@ export default function Dashboard() {
       setUserKey(key);
     }
   }, []);
+
+  const [userData, setUserData] = useState({});
+  useEffect(() => {
+    if (userKey) {
+      const data = JSON.parse(localStorage.getItem(userKey));
+      setUserData(data);
+    }
+  }, [userKey]);
   return (
       <Container>
       </Container>
