@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { IoIosLogIn } from 'react-icons/io';
 import * as yup from 'yup';
 import { SHA3 } from 'crypto-js';
 
 import Input from '../../components/input';
 import Welcome from './components/welcome';
+import Button from '../../components/button';
 import { Container } from './styles';
 
 const schema = yup.object().shape({
@@ -62,6 +64,11 @@ export default function Home() {
           <Input
             type="text"
             maxLength={255}
+            right={
+              <Button type="submit">
+                <IoIosLogIn size={28} color="#3b3c45" />
+              </Button>
+            }
             value={email}
             onChange={(event) => {
               setError(null);
