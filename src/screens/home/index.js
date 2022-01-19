@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { SHA3 } from 'crypto-js';
 
+import Input from '../../components/input';
 import Welcome from './components/welcome';
 import { Container } from './styles';
 
@@ -58,6 +59,16 @@ export default function Home() {
     <Container>
       <Welcome>
         <form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            maxLength={255}
+            value={email}
+            onChange={(event) => {
+              setError(null);
+              setEmail(event.target.value.toLowerCase().trim());
+            }}
+            placeholder="Type your best email"
+          />
         </form>
       </Welcome>
     </Container>
