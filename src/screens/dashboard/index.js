@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { GoalsContext } from '../../contexts/GoalsContext';
 import { Container } from './styles';
 
 export default function Dashboard() {
@@ -32,8 +33,13 @@ export default function Dashboard() {
       setGoals(userData.goals);
     }
   }, [userKey, userData]);
+  const context = useMemo(() => {
+  }, [userData, goals]);
+
   return (
+    <GoalsContext.Provider value={context}>
       <Container>
       </Container>
+    </GoalsContext.Provider>
   );
 }
