@@ -57,6 +57,8 @@ export default function Home() {
   return (
     <Container>
       <Welcome>
+        <form onSubmit={handleSubmit}>
+        </form>
       </Welcome>
     </Container>
   );
