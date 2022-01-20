@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 
 import Button from '../../../../components/button';
 import Input from '../../../../components/input';
+import { GoalsContext } from '../../../../contexts/GoalsContext';
 
 function Search() {
   const [query, setQuery] = useState('');
@@ -13,6 +14,9 @@ function Search() {
     </Button>
   );
   const [right, setRigth] = useState(search);
+
+  const { reList } = useContext(GoalsContext);
+
   return (
     <Input
       type="text"
