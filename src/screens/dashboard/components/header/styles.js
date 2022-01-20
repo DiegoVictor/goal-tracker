@@ -7,6 +7,8 @@ export const Container = styled.div`
   > div {
     min-width: 400px;
 
+`;
+
 export const Logout = styled.button`
   align-items: center;
   background-color: #e33d8e;
@@ -21,5 +23,18 @@ export const Logout = styled.button`
   width: 40px;
 `;
 
+export const AddButton = styled.div`
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  span {
+    margin-left: 5px;
   }
 `;
