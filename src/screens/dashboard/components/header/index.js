@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { IoIosLogOut } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { Subtitle } from '../../../../components/subtitle/styles';
-import { FlexRight, Orange } from '../../../../themes/commons';
+import Help from '../../../../components/help';
 import { GoalsContext } from '../../../../contexts/GoalsContext';
 import { Logout } from './styles';
 function Header() {
@@ -27,6 +27,8 @@ function Header() {
               <Orange>Goals</Orange>
             </h3>
             <Subtitle>List</Subtitle>
+
+            <Help text="You can mark a goal as done to check all subtasks automatically!" />
         </Container>
       )}
     </GoalsContext.Consumer>
