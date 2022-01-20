@@ -36,6 +36,17 @@ export default function Dashboard() {
   const context = useMemo(() => {
     return {
       goals,
+      reList: (query) => {
+        if (query.length < 3) {
+          setGoals(userData.goals);
+        } else {
+          setGoals(
+            userData.goals.filter(
+              ({ title }) => title.search(new RegExp(query, 'gi')) > -1
+            )
+          );
+        }
+      },
     };
   }, [userData, goals]);
 
