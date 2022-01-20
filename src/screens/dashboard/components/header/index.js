@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Subtitle } from '../../../../components/subtitle/styles';
 import { Center, FlexRight, Orange } from '../../../../themes/commons';
+import Search from '../search';
 import Help from '../../../../components/help';
 import { GoalsContext } from '../../../../contexts/GoalsContext';
 import { AddButton, Container, Logout } from './styles';
@@ -31,6 +32,7 @@ function Header() {
             </h3>
             <Subtitle>List</Subtitle>
 
+            <Search />
             <Help text="You can mark a goal as done to check all subtasks automatically!" />
 
             <Center>
