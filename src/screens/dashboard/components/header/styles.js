@@ -7,6 +7,11 @@ export const Container = styled.div`
   > div {
     min-width: 400px;
 
+    @media (max-width: 440px) {
+      min-width: auto;
+      width: 100%;
+    }
+  }
 `;
 
 export const Logout = styled.button`
