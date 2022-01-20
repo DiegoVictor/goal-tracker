@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Header from './components/header';
+import Goals from './components/goals';
 import { GoalsContext } from '../../contexts/GoalsContext';
 import { Container } from './styles';
 
@@ -57,6 +58,8 @@ export default function Dashboard() {
       <Container>
         <Header />
 
+
+        <Goals />
       </Container>
     </GoalsContext.Provider>
   );
