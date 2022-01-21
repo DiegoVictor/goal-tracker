@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { RiEdit2Fill } from 'react-icons/ri';
 import {
   BsFillCalendar2CheckFill,
   BsFillCalendarWeekFill,
@@ -30,7 +31,7 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
 
   return (
     <GoalsContext.Consumer>
-      {({ updateGoalById }) => (
+      {({ updateGoalById, setFormData }) => (
         <Container done={done}>
           <h4>{title}</h4>
           <Description>{description}</Description>
@@ -108,6 +109,16 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
                 <IoMdSquareOutline size={24} />
               )}
             </button>
+            <div>
+              <button
+                type="button"
+                onClick={() =>
+                  setFormData({ id, title, description, deadline, done, tasks })
+                }
+              >
+                <RiEdit2Fill size={20} />
+              </button>
+            </div>
           </Footer>
         </Container>
       )}
