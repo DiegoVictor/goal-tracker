@@ -1,7 +1,15 @@
+import {
+  Container,
+  Description,
+} from './styles';
 import { GoalsContext } from '../../../../contexts/GoalsContext';
 function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
   return (
     <GoalsContext.Consumer>
+        <Container done={done}>
+          <h4>{title}</h4>
+          <Description>{description}</Description>
+        </Container>
     </GoalsContext.Consumer>
   );
 }
