@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import {
+  BsFillCalendarWeekFill,
+} from 'react-icons/bs';
+import {
   IoIosCheckmarkCircle,
   IoMdRadioButtonOff,
   IoIosArrowDown,
 } from 'react-icons/io';
+import { format } from 'date-fns';
+
 import {
   Container,
   Description,
+  Events,
   Task,
   Tasks,
 } from './styles';
@@ -54,6 +60,17 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
               </div>
             </Tasks>
           )}
+
+          <Events done={done}>
+            <div>
+              <span>Deadline</span>
+              <div>
+                <BsFillCalendarWeekFill size={15} />
+                <span>{format(new Date(deadline), 'do, MMM yy')}</span>
+              </div>
+            </div>
+          </Events>
+
         </Container>
     </GoalsContext.Consumer>
   );
