@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   IoIosCheckmarkCircle,
   IoMdRadioButtonOff,
+  IoIosArrowDown,
+} from 'react-icons/io';
 import {
   Container,
   Description,
@@ -43,6 +45,12 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
                     {showTasksDetails && <span>{task.title}</span>}
                   </Task>
                 ))}
+                <SeeMoreButton open={showTasksDetails}>
+                  <IoIosArrowDown
+                    size={15}
+                    onClick={() => setShowTasksDetails(!showTasksDetails)}
+                  />
+                </SeeMoreButton>
               </div>
             </Tasks>
           )}

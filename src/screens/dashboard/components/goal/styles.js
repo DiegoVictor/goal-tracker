@@ -52,4 +52,23 @@ export const Task = styled.div`
     margin-top: 1px;
   }
 `;
+
+export const SeeMoreButton = styled.div`
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  margin-left: 3px;
+  margin-top: 3px;
+  width: 20px;
+
+  ${(props) =>
+    props.open &&
+    css`
+      margin-left: -1px;
+      transform: rotate(180deg);
+    `}
+`;
+
 `;
