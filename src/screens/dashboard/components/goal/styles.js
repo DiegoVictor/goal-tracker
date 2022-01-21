@@ -82,6 +82,11 @@ export const Events = styled.div`
       font-weight: 700;
       text-transform: uppercase;
     }
+
+    & + div {
+      margin-left: 5px;
+    }
+
     > div {
       align-items: center;
       background-color: ${(props) =>
@@ -99,4 +104,5 @@ export const Events = styled.div`
     }
   }
 `;
+
 `;

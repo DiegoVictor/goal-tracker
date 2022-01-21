@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
+  BsFillCalendar2CheckFill,
   BsFillCalendarWeekFill,
+  BsFillCalendarXFill,
 } from 'react-icons/bs';
 import {
   IoIosCheckmarkCircle,
@@ -71,9 +73,24 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
                 <span>{format(new Date(deadline), 'do, MMM yy')}</span>
               </div>
             </div>
+
+            {completedAt && (
+              <div>
+                <span>Completed At</span>
+                <div>
+                  {new Date(deadline) < new Date(completedAt) ? (
+                    <BsFillCalendarXFill />
+                  ) : (
+                    <BsFillCalendar2CheckFill size={15} />
+                  )}
+                  <span>{format(new Date(completedAt), 'do, MMM yy')}</span>
+                </div>
+              </div>
+            )}
           </Events>
 
         </Container>
+      )}
     </GoalsContext.Consumer>
   );
 }
