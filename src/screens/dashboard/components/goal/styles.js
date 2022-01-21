@@ -1,3 +1,5 @@
+import styled, { css } from 'styled-components';
+
 export const Container = styled.div`
   background: linear-gradient(
     49deg,
@@ -21,6 +23,19 @@ export const Container = styled.div`
       );
       color: #fff;
     `}
+
+  button {
+    align-items: center;
+    background-color: transparent;
+    border: 0px;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    height: 30px;
+    justify-content: center;
+    padding: 5px;
+    width: 30px;
+  }
 
   h4 {
     font-weight: 700;
@@ -105,4 +120,21 @@ export const Events = styled.div`
   }
 `;
 
+export const Footer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+
+  > button:first-child {
+    margin-left: -5px;
+  }
+
+  > div {
+    align-items: center;
+    display: flex;
+
+    button {
+      margin-left: 5px;
+    }
+  }
 `;

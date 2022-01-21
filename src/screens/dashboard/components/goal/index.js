@@ -6,8 +6,10 @@ import {
   BsFillCalendarXFill,
 } from 'react-icons/bs';
 import {
+  IoIosCheckbox,
   IoIosCheckmarkCircle,
   IoMdRadioButtonOff,
+  IoMdSquareOutline,
   IoIosArrowDown,
 } from 'react-icons/io';
 import { format } from 'date-fns';
@@ -16,6 +18,7 @@ import {
   Container,
   Description,
   Events,
+  Footer,
   SeeMoreButton,
   Task,
   Tasks,
@@ -89,6 +92,23 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
             )}
           </Events>
 
+          <Footer>
+            <button
+              type="button"
+              onClick={() =>
+                updateGoalById(id, {
+                  done: !done,
+                  completedAt: !done ? new Date() : null,
+                })
+              }
+            >
+              {done ? (
+                <IoIosCheckbox size={24} />
+              ) : (
+                <IoMdSquareOutline size={24} />
+              )}
+            </button>
+          </Footer>
         </Container>
       )}
     </GoalsContext.Consumer>
