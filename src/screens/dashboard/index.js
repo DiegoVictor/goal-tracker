@@ -36,6 +36,15 @@ export default function Dashboard() {
       setGoals(userData.goals);
     }
   }, [userKey, userData]);
+
+  const initialGoal = {
+    title: '',
+    description: '',
+    deadline: '',
+    tasks: [],
+    done: false,
+    completedAt: '',
+  };
   const context = useMemo(() => {
     return {
       goals,
@@ -49,6 +58,23 @@ export default function Dashboard() {
             )
           );
         }
+      },
+      updateGoalById: (goalId, params) => {
+        const updatedGoals = [...userData.goals];
+        const goalIndex = updatedGoals.findIndex(({ id }) => id === goalId);
+
+        updatedGoals[goalIndex] = {
+          ...updatedGoals[goalIndex],
+          ...params,
+        };
+
+        if (params.done) {
+          updatedGoals[goalIndex].tasks = updatedGoals[goalIndex].tasks.map(
+            (task) => ({ ...task, done: true })
+          );
+        }
+
+        setUserData({ goals: updatedGoals });
       },
     };
   }, [userData, goals]);
