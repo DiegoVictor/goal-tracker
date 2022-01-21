@@ -9,6 +9,7 @@ import {
 import {
   IoIosCheckbox,
   IoIosCheckmarkCircle,
+  IoIosRemoveCircle,
   IoMdRadioButtonOff,
   IoMdSquareOutline,
   IoIosArrowDown,
@@ -31,7 +32,7 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
 
   return (
     <GoalsContext.Consumer>
-      {({ updateGoalById, setFormData }) => (
+      {({ updateGoalById, deleteGoalById, setFormData }) => (
         <Container done={done}>
           <h4>{title}</h4>
           <Description>{description}</Description>
@@ -117,6 +118,9 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
                 }
               >
                 <RiEdit2Fill size={20} />
+              </button>
+              <button type="button" onClick={() => deleteGoalById(id)}>
+                <IoIosRemoveCircle size={20} />
               </button>
             </div>
           </Footer>
