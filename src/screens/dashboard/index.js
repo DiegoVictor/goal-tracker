@@ -77,6 +77,13 @@ export default function Dashboard() {
 
         setUserData({ goals: updatedGoals });
       },
+      deleteGoalById: (goalId) => {
+        const updatedGoals = [...userData.goals];
+        const goalIndex = updatedGoals.findIndex(({ id }) => id === goalId);
+
+        updatedGoals.splice(goalIndex, 1);
+        setUserData({ goals: updatedGoals });
+      },
       setFormData: (params = initialGoal) => {
         setGoal(params);
       },
