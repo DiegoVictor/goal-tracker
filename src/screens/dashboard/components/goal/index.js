@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import {
+  IoIosCheckmarkCircle,
+  IoMdRadioButtonOff,
+import {
   Container,
   Description,
+  Task,
   Tasks,
 } from './styles';
 import { GoalsContext } from '../../../../contexts/GoalsContext';
@@ -11,6 +15,7 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
 
   return (
     <GoalsContext.Consumer>
+      {({ updateGoalById }) => (
         <Container done={done}>
           <h4>{title}</h4>
           <Description>{description}</Description>
@@ -18,6 +23,26 @@ function Goal({ id, title, description, deadline, completedAt, tasks, done }) {
           {tasks?.length > 0 && (
             <Tasks showDetails={showTasksDetails}>
               <div>
+                {tasks.map((task) => (
+                  <Task
+                    title={task.title}
+                    key={task.id}
+                    onClick={() => {
+                      task.done = !task.done;
+                      updateGoalById(id, {
+                        tasks,
+                      });
+                    }}
+                  >
+                    {task.done ? (
+                      <IoIosCheckmarkCircle size={17} key={task.id} />
+                    ) : (
+                      <IoMdRadioButtonOff size={17} key={task.id} />
+                    )}
+
+                    {showTasksDetails && <span>{task.title}</span>}
+                  </Task>
+                ))}
               </div>
             </Tasks>
           )}

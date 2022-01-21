@@ -40,4 +40,16 @@ export const Tasks = styled.div`
     display: ${(props) => (props.showDetails ? 'block' : 'flex')};
   }
 `;
+
+export const Task = styled.div`
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  margin: 3px 0px 0px 1px;
+
+  span {
+    margin-left: 2px;
+    margin-top: 1px;
+  }
+`;
 `;
