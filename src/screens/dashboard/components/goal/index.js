@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   BsFillCalendarWeekFill,
 } from 'react-icons/bs';
@@ -13,6 +14,7 @@ import {
   Container,
   Description,
   Events,
+  SeeMoreButton,
   Task,
   Tasks,
 } from './styles';
