@@ -33,4 +33,11 @@ export const Description = styled.div`
   margin-top: 3px;
 `;
 
+export const Tasks = styled.div`
+  margin-top: ${(props) => (props.showDetails ? '15px' : '5px')};
+
+  > div {
+    display: ${(props) => (props.showDetails ? 'block' : 'flex')};
+  }
+`;
 `;
