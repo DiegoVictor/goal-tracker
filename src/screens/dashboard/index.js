@@ -37,6 +37,7 @@ export default function Dashboard() {
     }
   }, [userKey, userData]);
 
+  const [goal, setGoal] = useState(null);
   const initialGoal = {
     title: '',
     description: '',
@@ -75,6 +76,9 @@ export default function Dashboard() {
         }
 
         setUserData({ goals: updatedGoals });
+      },
+      setFormData: (params = initialGoal) => {
+        setGoal(params);
       },
     };
   }, [userData, goals]);
