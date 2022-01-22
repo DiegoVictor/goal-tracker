@@ -1,8 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as yup from 'yup';
+
 import {
   Container,
 } from './styles';
+
+const schema = yup.object().shape({
+  title: yup
+    .string()
+    .min(3, 'The title must has at least 3 characters')
+    .required('Please type the goal title'),
+  deadline: yup.string().required('Please select a deadline date'),
+});
 
 function Form({ data, cancel, onSubmit }) {
   return (
