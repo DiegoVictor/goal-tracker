@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 
@@ -15,6 +15,31 @@ const schema = yup.object().shape({
 });
 
 function Form({ data, cancel, onSubmit }) {
+  const [errors, setErrors] = useState(null);
+  const [goal, setGoal] = useState(data);
+
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+
+      await schema
+        .validate(goal, { abortEarly: false })
+        .then(() => {
+          onSubmit(goal);
+        })
+        .catch((err) => {
+          const messages = {};
+          err.inner.forEach((error) => {
+            if (!messages[error.path]) {
+              messages[error.path] = error.message;
+            }
+          });
+          setErrors(messages);
+        });
+    },
+    [goal]
+  );
+
   return (
     <Container>
     </Container>
