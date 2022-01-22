@@ -26,6 +26,11 @@ export const Container = styled.div`
     padding: 25px 15px 10px 45px;
     width: 100%;
   }
+
+  textarea {
+    padding-top: 28px;
+    resize: none;
+  }
 `;
 
 export const Done = styled.div`

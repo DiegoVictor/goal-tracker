@@ -9,6 +9,7 @@ import * as yup from 'yup';
 
 import Input from '../../../../components/input';
 import { Subtitle } from '../../../../components/subtitle/styles';
+import TextArea from '../../../../components/textarea';
 import Error from '../../../../components/error';
 import {
   Container,
@@ -107,6 +108,25 @@ function Form({ data, cancel, onSubmit }) {
           {errors?.title && <Error text={errors.title} />}
         </InputGroup>
         <InputGroup>
+          <span>Description</span>
+          <TextArea
+            cols="30"
+            rows="3"
+            left={
+              <Icon align="top">
+                <IoText color="#ccc" size={24} />
+              </Icon>
+            }
+            placeholder="Update my report about..."
+            value={goal.description}
+            onChange={(event) => {
+              setGoal({
+                ...goal,
+                description: event.target.value,
+              });
+            }}
+          />
+        </InputGroup>
         <InputGroup>
           <span>Deadline</span>
           <Input
