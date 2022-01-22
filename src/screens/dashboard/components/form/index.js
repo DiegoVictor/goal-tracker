@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { Subtitle } from '../../../../components/subtitle/styles';
 import {
   Container,
+  Done,
 } from './styles';
 
 const schema = yup.object().shape({
@@ -49,6 +50,31 @@ function Form({ data, cancel, onSubmit }) {
           <Subtitle>Create or update a goal</Subtitle>
         </div>
 
+        <Done
+          onClick={() => {
+            const done = !goal.done;
+            setGoal({
+              ...goal,
+              completedAt: done ? new Date() : null,
+              tasks: done
+                ? goal.tasks.map((task) => {
+                    task.done = true;
+                    return task;
+                  })
+                : goal.tasks,
+              done,
+            });
+          }}
+        >
+          <div>
+            {goal.done ? (
+              <BsToggleOn size={30} color="#17d076" />
+            ) : (
+              <BsToggleOff size={30} />
+            )}
+          </div>
+          <span>DONE</span>
+        </Done>
       </form>
     </Container>
   );

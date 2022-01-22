@@ -13,3 +13,17 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Done = styled.div`
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+
+  > div {
+    margin-top: 2px;
+  }
+
+  span {
+    margin-left: 10px;
+  }
+`;
