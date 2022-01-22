@@ -147,6 +147,22 @@ function Form({ data, cancel, onSubmit }) {
           />
           {errors?.deadline && <Error text={errors.deadline} />}
         </InputGroup>
+
+        <Tasks>
+          {goal?.tasks?.length > 0 && (
+            <table>
+              <thead>
+                <tr>
+                  <th>Done</th>
+                  <th>Title</th>
+                  <th>&nbsp;</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          )}
+        </Tasks>
       </form>
     </Container>
   );

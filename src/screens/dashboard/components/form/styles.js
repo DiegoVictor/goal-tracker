@@ -75,3 +75,20 @@ export const Icon = styled.div`
       margin-top: 28px;
     `}
 `;
+
+export const Tasks = styled.div`
+  margin-top: 40px;
+
+  table {
+    margin-bottom: 20px;
+    width: 100%;
+
+    th,
+    td {
+      text-align: left;
+
+
+    }
+
+  }
+`;
