@@ -1,11 +1,20 @@
 import React, { useCallback, useState } from 'react';
+import {
+  IoIosTime,
+} from 'react-icons/io';
+import { IoText } from 'react-icons/io5';
+import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 
+import Input from '../../../../components/input';
 import { Subtitle } from '../../../../components/subtitle/styles';
+import Error from '../../../../components/error';
 import {
   Container,
   Done,
+  Icon,
+  InputGroup,
 } from './styles';
 
 const schema = yup.object().shape({
@@ -75,6 +84,49 @@ function Form({ data, cancel, onSubmit }) {
           </div>
           <span>DONE</span>
         </Done>
+        <InputGroup>
+          <span>Title</span>
+          <Input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Update that beatiful report"
+            left={
+              <Icon>
+                <IoText color="#ccc" size={24} />
+              </Icon>
+            }
+            value={goal.title}
+            onChange={(event) => {
+              setGoal({
+                ...goal,
+                title: event.target.value,
+              });
+            }}
+          />
+          {errors?.title && <Error text={errors.title} />}
+        </InputGroup>
+        <InputGroup>
+        <InputGroup>
+          <span>Deadline</span>
+          <Input
+            type="date"
+            name="deadline"
+            left={
+              <Icon>
+                <IoIosTime color="#ccc" size={24} />
+              </Icon>
+            }
+            value={goal.deadline}
+            onChange={(event) => {
+              setGoal({
+                ...goal,
+                deadline: event.target.value,
+              });
+            }}
+          />
+          {errors?.deadline && <Error text={errors.deadline} />}
+        </InputGroup>
       </form>
     </Container>
   );

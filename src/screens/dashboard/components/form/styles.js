@@ -12,6 +12,20 @@ export const Container = styled.div`
       margin-bottom: 10px;
     }
   }
+
+  input,
+  textarea {
+    background-color: #fff;
+    border: 0px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    color: #444;
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 25px 15px 10px 45px;
+    width: 100%;
+  }
 `;
 
 export const Done = styled.div`
@@ -26,4 +40,33 @@ export const Done = styled.div`
   span {
     margin-left: 10px;
   }
+`;
+
+export const InputGroup = styled.div`
+  position: relative;
+
+  > span {
+    color: #999;
+    font-size: 14px;
+    font-weight: 700;
+    left: 45px;
+    position: absolute;
+    top: 10px;
+    z-index: 2;
+  }
+`;
+
+
+export const Icon = styled.div`
+  align-items: ${(props) => (props.align === 'top' ? 'flex-start' : 'center')};
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 50px;
+
+  ${(props) =>
+    props.align === 'top' &&
+    css`
+      margin-top: 28px;
+    `}
 `;
