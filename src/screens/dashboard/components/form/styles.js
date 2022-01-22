@@ -61,6 +61,29 @@ export const InputGroup = styled.div`
   }
 `;
 
+export const TaskForm = styled.div`
+  align-items: center;
+  background-color: #eee;
+  border-radius: 25px;
+  display: flex;
+  height: 50px;
+
+  > div {
+    width: 100%;
+
+    input {
+      background-color: transparent;
+      border-radius: 25px;
+      height: 50px;
+      padding: 5px 5px 5px 20px;
+      width: 100%;
+    }
+  }
+
+  button {
+    padding-right: 0px;
+  }
+`;
 
 export const Icon = styled.div`
   align-items: ${(props) => (props.align === 'top' ? 'flex-start' : 'center')};

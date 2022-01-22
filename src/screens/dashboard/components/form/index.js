@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import {
+  IoIosAddCircle,
   IoIosCheckbox,
   IoIosTime,
   IoMdSquareOutline,
@@ -19,6 +20,7 @@ import {
   Done,
   Icon,
   InputGroup,
+  TaskForm,
   Tasks,
 } from './styles';
 
@@ -31,6 +33,7 @@ const schema = yup.object().shape({
 });
 
 function Form({ data, cancel, onSubmit }) {
+  const [title, setTitle] = useState('');
   const [errors, setErrors] = useState(null);
   const [goal, setGoal] = useState(data);
 
@@ -221,6 +224,29 @@ function Form({ data, cancel, onSubmit }) {
           )}
         </Tasks>
 
+        <TaskForm>
+          <Input
+            type="text"
+            placeholder="Task title"
+            value={title}
+            onChange={(event) => setTitle(event.target.value)}
+            right={
+              <Button
+                type="button"
+                disabled={!(title?.length > 3)}
+                onClick={() => {
+                  setGoal({
+                    ...goal,
+                    tasks: [...goal.tasks, { done: false, title }],
+                  });
+                  setTitle('');
+                }}
+              >
+                <IoIosAddCircle size={32} color="#ccc" />
+              </Button>
+            }
+          />
+        </TaskForm>
       </form>
     </Container>
   );
