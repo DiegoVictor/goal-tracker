@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/header';
 import Goals from './components/goals';
 import { GoalsContext } from '../../contexts/GoalsContext';
+import Form from './components/form';
 import Modal from '../../components/modal';
 import { PreventScroll } from '../../components/modal/styles';
 import { Container } from './styles';
@@ -100,6 +101,10 @@ export default function Dashboard() {
         {goal && (
           <Modal>
             <PreventScroll />
+            <Form
+              data={goal}
+              cancel={() => setGoal(null)}
+            />
           </Modal>
         )}
 
