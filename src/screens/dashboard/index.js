@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from './components/header';
 import Goals from './components/goals';
 import { GoalsContext } from '../../contexts/GoalsContext';
+import Modal from '../../components/modal';
 import { Container } from './styles';
 
 export default function Dashboard() {
@@ -95,6 +96,10 @@ export default function Dashboard() {
       <Container>
         <Header />
 
+        {goal && (
+          <Modal>
+          </Modal>
+        )}
 
         <Goals />
       </Container>
