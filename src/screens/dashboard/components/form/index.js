@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 
+import { Subtitle } from '../../../../components/subtitle/styles';
 import {
   Container,
 } from './styles';
@@ -42,6 +43,13 @@ function Form({ data, cancel, onSubmit }) {
 
   return (
     <Container>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <h3>Form</h3>
+          <Subtitle>Create or update a goal</Subtitle>
+        </div>
+
+      </form>
     </Container>
   );
 }
