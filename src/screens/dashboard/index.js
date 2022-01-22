@@ -5,6 +5,7 @@ import Header from './components/header';
 import Goals from './components/goals';
 import { GoalsContext } from '../../contexts/GoalsContext';
 import Modal from '../../components/modal';
+import { PreventScroll } from '../../components/modal/styles';
 import { Container } from './styles';
 
 export default function Dashboard() {
@@ -98,6 +99,7 @@ export default function Dashboard() {
 
         {goal && (
           <Modal>
+            <PreventScroll />
           </Modal>
         )}
 
