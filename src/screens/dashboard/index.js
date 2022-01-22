@@ -27,7 +27,7 @@ export default function Dashboard() {
   const [userData, setUserData] = useState({});
   useEffect(() => {
     if (userKey) {
-      const data = JSON.parse(localStorage.getItem(userKey));
+      const data = JSON.parse(localStorage.getItem(userKey)) || { goals: [] };
       setUserData(data);
     }
   }, [userKey]);
