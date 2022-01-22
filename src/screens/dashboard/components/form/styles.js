@@ -87,8 +87,61 @@ export const Tasks = styled.div`
     td {
       text-align: left;
 
+      input {
+        border-radius: 0px;
+        width: auto;
 
+        &[type='checkbox'] {
+          height: 30px;
+        }
+      }
     }
+
+    th:first-child {
+      text-align: center;
+    }
+
+    td:first-child {
+      text-align: center;
+      vertical-align: center;
+
+      button {
+        height: 30px;
+        padding: 3px;
+        width: 30px;
+      }
+    }
+
+    td:nth-child(2) {
+      background-color: #eeeeee;
+
+      input {
+        background-color: transparent;
+        border: 0px;
+        height: 40px;
+        padding: 5px 10px;
+        width: 100%;
+      }
+    }
+
+    td:nth-child(3) {
+      display: flex;
+      justify-content: flex-end;
+
+      button {
+        align-items: center;
+        background-color: transparent;
+        border: 0px;
+        cursor: pointer;
+        display: flex;
+        height: 42px;
+        justify-content: center;
+        margin-right: 10px;
+        padding: 0px;
+        width: 42px;
+      }
+    }
+
 
   }
 `;

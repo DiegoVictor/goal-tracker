@@ -1,12 +1,15 @@
 import React, { useCallback, useState } from 'react';
 import {
+  IoIosCheckbox,
   IoIosTime,
+  IoMdSquareOutline,
 } from 'react-icons/io';
-import { IoText } from 'react-icons/io5';
+import { IoCloseCircle, IoText } from 'react-icons/io5';
 import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 
+import Button from '../../../../components/button';
 import Input from '../../../../components/input';
 import { Subtitle } from '../../../../components/subtitle/styles';
 import TextArea from '../../../../components/textarea';
@@ -16,6 +19,7 @@ import {
   Done,
   Icon,
   InputGroup,
+  Tasks,
 } from './styles';
 
 const schema = yup.object().shape({
@@ -159,10 +163,64 @@ function Form({ data, cancel, onSubmit }) {
                 </tr>
               </thead>
               <tbody>
+                {goal.tasks.map((task, index) => (
+                  <tr key={task.id}>
+                    <td>
+                      <Button
+                        type="button"
+                        onClick={() => {
+                          const tasks = [...goal.tasks];
+                          tasks[index].done = !tasks[index].done;
+                          setGoal({
+                            ...goal,
+                            tasks,
+                          });
+                        }}
+                      >
+                        {task.done ? (
+                          <IoIosCheckbox size={24} />
+                        ) : (
+                          <IoMdSquareOutline size={24} />
+                        )}
+                      </Button>
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        value={task.title}
+                        onChange={(event) => {
+                          const tasks = [...goal.tasks];
+                          tasks[index].title = event.target.value;
+                          setGoal({
+                            ...goal,
+                            tasks,
+                          });
+                        }}
+                      />
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const tasks = [...goal.tasks];
+                          tasks.splice(index, 1);
+
+                          setGoal({
+                            ...goal,
+                            tasks,
+                          });
+                        }}
+                      >
+                        <IoCloseCircle color="#ccc" size={24} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           )}
         </Tasks>
+
       </form>
     </Container>
   );
