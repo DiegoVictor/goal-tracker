@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Header from './components/header';
@@ -41,6 +41,30 @@ export default function Dashboard() {
   }, [userKey, userData]);
 
   const [goal, setGoal] = useState(null);
+  const handleSubmit = useCallback(
+    (data) => {
+      const items = [...userData.goals];
+
+      if (data.id) {
+        const goalIndex = items.findIndex(({ id }) => id === data.id);
+        items.splice(goalIndex, 1, {
+          ...items[goalIndex],
+          ...data,
+        });
+      } else {
+        data.id = new Date().getTime();
+        items.push(data);
+      }
+
+      setUserData({
+        ...userData,
+        goals: items,
+      });
+      setGoal(null);
+    },
+    [userData]
+  );
+
   const initialGoal = {
     title: '',
     description: '',
@@ -104,6 +128,7 @@ export default function Dashboard() {
             <Form
               data={goal}
               cancel={() => setGoal(null)}
+              onSubmit={handleSubmit}
             />
           </Modal>
         )}
