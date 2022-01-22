@@ -2,10 +2,11 @@ import React, { useCallback, useState } from 'react';
 import {
   IoIosAddCircle,
   IoIosCheckbox,
+  IoIosSave,
   IoIosTime,
   IoMdSquareOutline,
 } from 'react-icons/io';
-import { IoCloseCircle, IoText } from 'react-icons/io5';
+import { IoCloseCircle, IoCloseOutline, IoText } from 'react-icons/io5';
 import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
@@ -18,6 +19,7 @@ import Error from '../../../../components/error';
 import {
   Container,
   Done,
+  Footer,
   Icon,
   InputGroup,
   TaskForm,
@@ -247,6 +249,34 @@ function Form({ data, cancel, onSubmit }) {
             }
           />
         </TaskForm>
+
+        <Footer>
+          <button
+            type="button"
+            onClick={cancel}
+            style={{
+              alignItems: 'center',
+              borderRadius: 30,
+              justifyContent: 'center',
+              display: 'flex',
+              width: 40,
+            }}
+          >
+            <IoCloseOutline size={20} />
+          </button>
+          <button
+            type="submit"
+            style={{
+              alignItems: 'center',
+              borderRadius: 30,
+              justifyContent: 'center',
+              display: 'flex',
+              width: 40,
+            }}
+          >
+            <IoIosSave size={18} />
+          </button>
+        </Footer>
       </form>
     </Container>
   );

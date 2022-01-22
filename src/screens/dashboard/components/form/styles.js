@@ -1,7 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   min-width: 450px;
+
+  @media (max-width: 480px) {
+    min-width: auto;
+    width: 100%;
+  }
+
   form {
     background-color: #f7f7f7;
     padding: 20px;
@@ -164,7 +170,19 @@ export const Tasks = styled.div`
         width: 42px;
       }
     }
+  }
+`;
 
+export const Footer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  text-align: center;
 
+  button {
+    border: 0px;
+    cursor: pointer;
+    margin: auto 5px;
+    padding: 10px;
   }
 `;
