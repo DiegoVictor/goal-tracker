@@ -45,6 +45,19 @@ export function GoalsContextProvider({ children }) {
       setGoals(userData.goals);
     }
   }, [userKey, userData]);
+
+  const [formData, setFormData] = useState(null);
+  const context = useMemo(
+    () => ({
+      goals,
+      formData,
+      setFormData,
+      userData,
+      setUserData,
+    }),
+    [goals, userData, formData]
+  );
+
   return (
     <GoalsContext.Provider value={context}>{children}</GoalsContext.Provider>
   );
