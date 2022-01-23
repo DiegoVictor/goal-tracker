@@ -46,6 +46,53 @@ export function GoalsContextProvider({ children }) {
     }
   }, [userKey, userData]);
 
+  const reList = useCallback(
+    (query) => {
+      if (query.length < 3) {
+        setGoals(userData.goals);
+      }
+
+      setGoals(
+        userData.goals.filter(
+          ({ title }) => title.search(new RegExp(query, 'gi')) > -1
+        )
+      );
+    },
+    [userData]
+  );
+
+  const update = useCallback(
+    (id, params) => {
+      const updatedGoals = [...userData.goals];
+      const goalIndex = updatedGoals.findIndex((goal) => goal.id === id);
+
+      updatedGoals[goalIndex] = {
+        ...updatedGoals[goalIndex],
+        ...params,
+      };
+
+      if (params.done) {
+        updatedGoals[goalIndex].tasks = updatedGoals[goalIndex].tasks.map(
+          (task) => ({ ...task, done: true })
+        );
+      }
+
+      setUserData({ ...userData, goals: updatedGoals });
+    },
+    [userData]
+  );
+
+  const remove = useCallback(
+    (id) => {
+      const updatedGoals = [...userData.goals];
+      const goalIndex = updatedGoals.findIndex((goal) => goal.id === id);
+
+      updatedGoals.splice(goalIndex, 1);
+      setUserData({ goals: updatedGoals });
+    },
+    [userData]
+  );
+
   const [formData, setFormData] = useState(null);
   const context = useMemo(
     () => ({
@@ -54,6 +101,9 @@ export function GoalsContextProvider({ children }) {
       setFormData,
       userData,
       setUserData,
+      reList,
+      update,
+      remove,
     }),
     [goals, userData, formData]
   );
