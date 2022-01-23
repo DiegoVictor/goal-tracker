@@ -1,13 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import {
-  IoIosAddCircle,
-  IoIosCheckbox,
-  IoIosSave,
-  IoIosTime,
-  IoMdSquareOutline,
-} from 'react-icons/io';
-import { IoCloseCircle, IoCloseOutline, IoText } from 'react-icons/io5';
-import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
+import { IoIosSave, IoIosTime } from 'react-icons/io';
+import { IoCloseOutline, IoText } from 'react-icons/io5';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 
@@ -15,6 +8,7 @@ import { Subtitle } from 'components/subtitle/styles';
 
 import Done from './components/done';
 import Tasks from './components/tasks';
+import InputGroup from './components/input-group';
 import { Container, Footer } from './styles';
 
 const schema = yup.object().shape({
@@ -76,55 +70,49 @@ function Form({ data, cancel, onSubmit }) {
           }}
         />
 
-            onChange={(event) => {
-              setGoal({
-                ...goal,
-                title: event.target.value,
-              });
-            }}
-          />
-          {errors?.title && <Error text={errors.title} />}
-        </InputGroup>
-        <InputGroup>
-          <span>Description</span>
-          <TextArea
-            cols="30"
-            rows="3"
-            left={
-              <Icon align="top">
-                <IoText color="#ccc" size={24} />
-              </Icon>
-            }
-            placeholder="Update my report about..."
-            value={goal.description}
-            onChange={(event) => {
-              setGoal({
-                ...goal,
-                description: event.target.value,
-              });
-            }}
-          />
-        </InputGroup>
-        <InputGroup>
-          <span>Deadline</span>
-          <Input
-            type="date"
-            name="deadline"
-            left={
-              <Icon>
-                <IoIosTime color="#ccc" size={24} />
-              </Icon>
-            }
-            value={goal.deadline}
-            onChange={(event) => {
-              setGoal({
-                ...goal,
-                deadline: event.target.value,
-              });
-            }}
-          />
-          {errors?.deadline && <Error text={errors.deadline} />}
-        </InputGroup>
+        <InputGroup
+          title="Title"
+          placeholder="Update that beautiful report"
+          value={goal.title}
+          error={errors?.title}
+          left={IoText}
+          onChange={(value) => {
+            setGoal({
+              ...goal,
+              title: value,
+            });
+          }}
+        />
+
+        <InputGroup
+          area
+          title="Description"
+          cols="30"
+          rows="3"
+          placeholder="Update my report about..."
+          value={goal.description}
+          left={IoText}
+          onChange={(value) => {
+            setGoal({
+              ...goal,
+              description: value,
+            });
+          }}
+        />
+
+        <InputGroup
+          type="date"
+          title="Deadline"
+          value={goal.deadline}
+          error={errors?.deadline}
+          left={IoIosTime}
+          onChange={(value) => {
+            setGoal({
+              ...goal,
+              deadline: value,
+            });
+          }}
+        />
 
         <Tasks items={goal.tasks} onChange={setGoal} />
 
