@@ -1,10 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
-
-export const PreventScroll = createGlobalStyle`
-  body {
-    overflow: hidden;
-  }
-`;
+import styled from 'styled-components';
 
 export const Container = styled.div`
   align-items: center;
