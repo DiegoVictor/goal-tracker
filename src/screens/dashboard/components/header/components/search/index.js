@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { IoIosClose, IoIosSearch } from 'react-icons/io';
 
-import Button from '../../../../components/button';
-import Input from '../../../../components/input';
-import { GoalsContext } from '../../../../contexts/GoalsContext';
+import Button from 'components/button';
+import Input from 'components/input';
+import { GoalsContext } from 'contexts/GoalsContext';
 
 function Search() {
   const [query, setQuery] = useState('');
