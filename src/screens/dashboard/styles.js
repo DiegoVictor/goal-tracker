@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const Container = styled.div`
   margin: auto;
@@ -10,5 +10,11 @@ export const Container = styled.div`
   @media (max-width: 440px) {
     min-width: auto;
     padding: 30px 15px;
+  }
+`;
+
+export const PreventScroll = createGlobalStyle`
+  body {
+    overflow: hidden;
   }
 `;

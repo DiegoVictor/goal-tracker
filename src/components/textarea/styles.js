@@ -17,5 +17,7 @@ export const Text = styled.textarea`
   border-radius: 12px;
   border: 0px;
   font-family: Roboto, sans-serif;
+  padding-top: 28px;
+  resize: none;
   width: 100%;
 `;
