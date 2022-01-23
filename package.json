@@ -1,6 +1,6 @@
 {
-  "name": "goal-tracking",
-  "version": "0.1.0",
+  "name": "goal-tracker",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
