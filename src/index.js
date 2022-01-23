@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Navigation from './navigation';
-import { Style } from './themes/global';
+import { Style } from 'styles/global';
+import Navigation from 'navigation';
 
 ReactDOM.render(
   <React.StrictMode>

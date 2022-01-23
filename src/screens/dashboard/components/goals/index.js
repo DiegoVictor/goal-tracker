@@ -1,7 +1,8 @@
 import React from 'react';
 
-import Goal from '../goal';
-import { GoalsContext } from '../../../../contexts/GoalsContext';
+import { GoalsContext } from 'contexts/GoalsContext';
+
+import Goal from './components/goal';
 import { Container } from './styles';
 
 function Goals() {

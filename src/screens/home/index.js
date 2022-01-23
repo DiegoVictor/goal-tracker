@@ -4,11 +4,12 @@ import { IoIosLogIn } from 'react-icons/io';
 import * as yup from 'yup';
 import { SHA3 } from 'crypto-js';
 
-import Input from '../../components/input';
+import Input from 'components/input';
+import Button from 'components/button';
+import Help from 'components/help';
+import Error from 'components/error';
+
 import Welcome from './components/welcome';
-import Button from '../../components/button';
-import Help from '../../components/help';
-import Error from '../../components/error';
 import { Container } from './styles';
 
 const schema = yup.object().shape({

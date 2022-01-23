@@ -25,5 +25,12 @@
     ],
     "react/jsx-props-no-spreading": "off",
     "no-param-reassign": "off"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   }
 }

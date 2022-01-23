@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import { GoalsContext } from 'contexts/GoalsContext';
+
+import Modal from './components/modal';
 import Header from './components/header';
 import Goals from './components/goals';
-import { GoalsContext } from '../../contexts/GoalsContext';
 import Form from './components/form';
-import Modal from '../../components/modal';
-import { PreventScroll } from '../../components/modal/styles';
-import { Container } from './styles';
+import { Container, PreventScroll } from './styles';
 
 export default function Dashboard() {
   const navigate = useNavigate();

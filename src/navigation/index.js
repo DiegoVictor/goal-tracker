@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Dashboard from '../screens/dashboard';
-import Home from '../screens/home';
+import Dashboard from 'screens/dashboard';
+import Home from 'screens/home';
 
 export default function Navigation() {
   return (
