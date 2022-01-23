@@ -34,7 +34,9 @@ export function GoalsContextProvider({ children }) {
   useEffect(() => {
     if (userKey) {
       const data = JSON.parse(localStorage.getItem(userKey));
-      setUserData(data);
+      if (data) {
+        setUserData(data);
+      }
     }
   }, [userKey]);
 
