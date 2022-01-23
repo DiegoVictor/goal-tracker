@@ -65,14 +65,6 @@ export default function Dashboard() {
     [userData]
   );
 
-  const initialGoal = {
-    title: '',
-    description: '',
-    deadline: '',
-    tasks: [],
-    done: false,
-    completedAt: '',
-  };
   const context = useMemo(() => {
     return {
       goals,

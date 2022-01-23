@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Subtitle } from 'components/subtitle/styles';
 import { Center, FlexRight, Orange } from 'styles/commons';
 import Help from 'components/help';
-import { GoalsContext } from 'contexts/GoalsContext';
+import { GoalsContext, INITIAL_GOAL_STATE } from 'contexts/GoalsContext';
 
 import Search from './components/search';
 
@@ -38,7 +38,7 @@ function Header() {
             <Help text="You can mark a goal as done to check all subtasks automatically!" />
 
             <Center>
-              <AddButton onClick={setFormData}>
+              <AddButton onClick={() => setFormData(INITIAL_GOAL_STATE)}>
                 <IoIosAddCircle size={32} color="#fff" />
                 <span>Add new goal</span>
               </AddButton>
