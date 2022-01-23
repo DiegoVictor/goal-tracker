@@ -117,29 +117,10 @@ function Form({ data, cancel, onSubmit }) {
         <Tasks items={goal.tasks} onChange={setGoal} />
 
         <Footer>
-          <button
-            type="button"
-            onClick={cancel}
-            style={{
-              alignItems: 'center',
-              borderRadius: 30,
-              justifyContent: 'center',
-              display: 'flex',
-              width: 40,
-            }}
-          >
+          <button type="button" onClick={cancel}>
             <IoCloseOutline size={20} />
           </button>
-          <button
-            type="submit"
-            style={{
-              alignItems: 'center',
-              borderRadius: 30,
-              justifyContent: 'center',
-              display: 'flex',
-              width: 40,
-            }}
-          >
+          <button type="submit">
             <IoIosSave size={18} />
           </button>
         </Footer>
