@@ -12,6 +12,8 @@ Log in with one email and start manage your goals, you can create, update or del
 * [Screenshots](#screenshots)
 * [Installing](#installing)
 * [Usage](#usage)
+  * [Login](#login)
+  * [localStorage](#localstorage)
 
 # Screenshots
 Click to expand.<br>
@@ -37,4 +39,44 @@ $ yarn start
 Or:
 ```
 npm run start
+```
+
+## Login
+Your email is used just to store your data and keep separated from other users in your browser, any kind of ads or newsletter will not be sent to you.
+
+## localStorage
+The project saves your goals into a [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) key: a [SHA3](https://cryptojs.gitbook.io/docs/#hashing) hash of your email. Before use this data you need parse the data to a JavaScript object with [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) function. Below you can see fictitious data:
+```json
+{
+  "goals": [
+    {
+      "id": 1642907083631,
+      "title": "Create goal tracker web application",
+      "description": "Develop the application to manage goals",
+      "deadline": "2022-01-31",
+      "tasks": [
+        {
+          "id": 1642907169966,
+          "done": true,
+          "title": "Create home page"
+        },
+        {
+          "id": 1642907177520,
+          "done": true,
+          "title": "Create dashboard page"
+        }
+      ],
+      "done": true,
+      "completedAt": "2022-01-23T03:06:18.392Z",
+    },
+    {
+      "id": 1642907124252,
+      "title": "To document API routes",
+      "description": "Write the API's documentation",
+      "deadline": "2022-01-28",
+      "tasks": [],
+      "done": false,
+    }
+  ]
+}
 ```
