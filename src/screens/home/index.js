@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { IoIosLogIn } from 'react-icons/io';
 import * as yup from 'yup';
@@ -20,7 +20,14 @@ const schema = yup.object().shape({
 
 export default function Home() {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState(null);
+
+  const defaultHelpText = useMemo(
+    () => (
+      <Help text="Your email will not be used to any kind of ads, just to keep your goals stored" />
+    ),
+    []
+  );
+  const [helpText, setHelpText] = useState(defaultHelpText);
 
   const navigate = useNavigate();
   const handleSubmit = useCallback(
@@ -40,7 +47,7 @@ export default function Home() {
           });
         })
         .catch((err) => {
-          setError(err.errors.pop());
+          setHelpText(<Error text={err.errors.pop()} />);
         });
     },
     [email]
@@ -73,18 +80,12 @@ export default function Home() {
             }
             value={email}
             onChange={(event) => {
-              setError(null);
+              setHelpText(defaultHelpText);
               setEmail(event.target.value.toLowerCase().trim());
             }}
             placeholder="Type your best email"
-            help={
-              error ? (
-                <Error text={error} />
-              ) : (
-                <Help text="Your email will not be used to any kind of ads, just to keep your goals stored" />
-              )
-            }
           />
+          {helpText}
         </form>
       </Welcome>
     </Container>
