@@ -11,20 +11,10 @@ import { BsToggleOff, BsToggleOn } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 
-import Button from '../../../../components/button';
-import Input from '../../../../components/input';
-import { Subtitle } from '../../../../components/subtitle/styles';
-import TextArea from '../../../../components/textarea';
-import Error from '../../../../components/error';
-import {
-  Container,
-  Done,
-  Footer,
-  Icon,
-  InputGroup,
-  TaskForm,
-  Tasks,
-} from './styles';
+import { Subtitle } from 'components/subtitle/styles';
+
+import Tasks from './components/tasks';
+import { Container, Footer } from './styles';
 
 const schema = yup.object().shape({
   title: yup
@@ -35,7 +25,6 @@ const schema = yup.object().shape({
 });
 
 function Form({ data, cancel, onSubmit }) {
-  const [title, setTitle] = useState('');
   const [errors, setErrors] = useState(null);
   const [goal, setGoal] = useState(data);
 
@@ -157,98 +146,7 @@ function Form({ data, cancel, onSubmit }) {
           {errors?.deadline && <Error text={errors.deadline} />}
         </InputGroup>
 
-        <Tasks>
-          {goal?.tasks?.length > 0 && (
-            <table>
-              <thead>
-                <tr>
-                  <th>Done</th>
-                  <th>Title</th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                {goal.tasks.map((task, index) => (
-                  <tr key={task.id}>
-                    <td>
-                      <Button
-                        type="button"
-                        onClick={() => {
-                          const tasks = [...goal.tasks];
-                          tasks[index].done = !tasks[index].done;
-                          setGoal({
-                            ...goal,
-                            tasks,
-                          });
-                        }}
-                      >
-                        {task.done ? (
-                          <IoIosCheckbox size={24} />
-                        ) : (
-                          <IoMdSquareOutline size={24} />
-                        )}
-                      </Button>
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={task.title}
-                        onChange={(event) => {
-                          const tasks = [...goal.tasks];
-                          tasks[index].title = event.target.value;
-                          setGoal({
-                            ...goal,
-                            tasks,
-                          });
-                        }}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const tasks = [...goal.tasks];
-                          tasks.splice(index, 1);
-
-                          setGoal({
-                            ...goal,
-                            tasks,
-                          });
-                        }}
-                      >
-                        <IoCloseCircle color="#ccc" size={24} />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </Tasks>
-
-        <TaskForm>
-          <Input
-            type="text"
-            placeholder="Task title"
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            right={
-              <Button
-                type="button"
-                disabled={!(title?.length > 3)}
-                onClick={() => {
-                  setGoal({
-                    ...goal,
-                    tasks: [...goal.tasks, { done: false, title }],
-                  });
-                  setTitle('');
-                }}
-              >
-                <IoIosAddCircle size={32} color="#ccc" />
-              </Button>
-            }
-          />
-        </TaskForm>
+        <Tasks items={goal.tasks} onChange={setGoal} />
 
         <Footer>
           <button
