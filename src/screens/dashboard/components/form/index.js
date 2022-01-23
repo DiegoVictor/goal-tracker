@@ -13,6 +13,7 @@ import * as yup from 'yup';
 
 import { Subtitle } from 'components/subtitle/styles';
 
+import Done from './components/done';
 import Tasks from './components/tasks';
 import { Container, Footer } from './styles';
 
@@ -59,8 +60,8 @@ function Form({ data, cancel, onSubmit }) {
         </div>
 
         <Done
-          onClick={() => {
-            const done = !goal.done;
+          value={goal.done}
+          onChange={(done) => {
             setGoal({
               ...goal,
               completedAt: done ? new Date() : null,
@@ -73,29 +74,8 @@ function Form({ data, cancel, onSubmit }) {
               done,
             });
           }}
-        >
-          <div>
-            {goal.done ? (
-              <BsToggleOn size={30} color="#17d076" />
-            ) : (
-              <BsToggleOff size={30} />
-            )}
-          </div>
-          <span>DONE</span>
-        </Done>
-        <InputGroup>
-          <span>Title</span>
-          <Input
-            id="title"
-            name="title"
-            type="text"
-            placeholder="Update that beatiful report"
-            left={
-              <Icon>
-                <IoText color="#ccc" size={24} />
-              </Icon>
-            }
-            value={goal.title}
+        />
+
             onChange={(event) => {
               setGoal({
                 ...goal,
