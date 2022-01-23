@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container, Left, Right, TextInput } from './styles';
 
-function Input({ right, left, onChange, help, ...props }) {
-  const defaultProps = {
-    onChange,
-    onPaste: onChange,
-  };
+function Input({ right, left, onChange, ...props }) {
+  const defaultProps = useMemo(
+    () => ({
+      onChange,
+      onPaste: onChange,
+    }),
+    [onChange]
+  );
+
   if (right || left) {
     return (
       <Container>

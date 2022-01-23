@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import { Container, Left, Text } from './styles';
 
 function TextArea({ left, onChange, ...props }) {
-function TextArea({ left, onChange, help, ...props }) {
-  const defaultProps = {
-    onChange,
-    onPaste: onChange,
-  };
+  const defaultProps = useMemo(
+    () => ({
+      onChange,
+      onPaste: onChange,
+    }),
+    [onChange]
+  );
+
   if (left) {
     return (
       <Container>
