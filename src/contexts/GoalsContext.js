@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 export const INITIAL_GOAL_STATE = {
   title: '',
   description: '',
@@ -9,9 +10,5 @@ export const INITIAL_GOAL_STATE = {
 };
 
 export const GoalsContext = React.createContext({
-  goals: [],
-  reList: () => {},
-  updateGoalById: () => {},
-  deleteGoalById: () => {},
-  setFormData: () => {},
+  userData: { goals: [] },
 });
