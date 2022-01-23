@@ -10,37 +10,7 @@ import Form from './components/form';
 import { Container, PreventScroll } from './styles';
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const [userKey, setUserKey] = useState('');
-  useEffect(() => {
-    if (!location.state || !location.state?.key) {
-      navigate('/');
-    } else {
-      const { key } = location.state;
-
-      setUserKey(key);
-    }
-  }, []);
-
-  const [userData, setUserData] = useState({});
-  useEffect(() => {
-    if (userKey) {
-      const data = JSON.parse(localStorage.getItem(userKey)) || { goals: [] };
-      setUserData(data);
-    }
-  }, [userKey]);
-
-  const [goals, setGoals] = useState([]);
-  useEffect(() => {
-    if (userKey) {
-      localStorage.setItem(userKey, JSON.stringify(userData));
-      setGoals(userData.goals);
-    }
-  }, [userKey, userData]);
-
-  const [goal, setGoal] = useState(null);
+  const { userData, setUserData, setFormData } = useContext(GoalsContext);
   const handleSubmit = useCallback(
     (data) => {
       const items = [...userData.goals];
@@ -60,7 +30,7 @@ export default function Dashboard() {
         ...userData,
         goals: items,
       });
-      setGoal(null);
+      setFormData(null);
     },
     [userData]
   );
