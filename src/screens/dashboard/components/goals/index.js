@@ -12,7 +12,7 @@ function Goals() {
         {({ goals }) => {
           return (
             <div>
-              {goals?.length > 0 &&
+              {goals.length > 0 &&
                 goals.map((goal) => <Goal {...goal} key={goal.id} />)}
             </div>
           );
