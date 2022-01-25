@@ -39,11 +39,12 @@ function Tasks({ goalId, items }) {
               {showTasksDetails && <span>{task.title}</span>}
             </Task>
           ))}
-          <Button open={showTasksDetails}>
-            <IoIosArrowDown
-              size={15}
-              onClick={() => setShowTasksDetails(!showTasksDetails)}
+          <Button
+            open={showTasksDetails}
+            onClick={() => setShowTasksDetails(!showTasksDetails)}
             />
+          >
+            <IoIosArrowDown size={15} />
           </Button>
         </div>
       )}
