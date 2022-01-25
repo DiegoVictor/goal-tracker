@@ -28,11 +28,13 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
         <button
           type="button"
           data-testid={`goal-${id}-done`}
+          data-value={done}
+          onClick={() => {
             update(id, {
               done: !done,
-              completedAt: !done ? new Date() : null,
-            })
-          }
+              completedAt: !done ? new Date() : '',
+            });
+          }}
         >
           {done ? <IoIosCheckbox size={24} /> : <IoMdSquareOutline size={24} />}
         </button>

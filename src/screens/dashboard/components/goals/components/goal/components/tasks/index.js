@@ -22,6 +22,7 @@ function Tasks({ goalId, items }) {
             <Task
               title={task.title}
               data-testid={`goal-${goalId}-task-${task.id}-done`}
+              data-value={task.done}
               key={task.id}
               onClick={() => {
                 task.done = !task.done;
