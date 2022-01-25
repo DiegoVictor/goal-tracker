@@ -24,11 +24,8 @@ function Timeline({ done, deadline, completedAt }) {
         <div>
           <span>Completed At</span>
           <div>
-            {new Date(deadline) < new Date(completedAt) ? (
-              <BsFillCalendarXFill />
-            ) : (
-              <BsFillCalendar2CheckFill size={15} />
-            )}
+            <BsFillCalendar2CheckFill size={15} />
+
             <span>{format(new Date(completedAt), 'do, MMM yy')}</span>
           </div>
         </div>
