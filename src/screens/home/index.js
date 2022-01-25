@@ -72,10 +72,11 @@ export default function Home() {
       <Welcome>
         <form onSubmit={handleSubmit}>
           <Input
+            data-testid="email"
             type="text"
             maxLength={255}
             right={
-              <Button type="submit">
+              <Button data-testid="submit" type="submit">
                 <IoIosLogIn size={28} color="#3b3c45" />
               </Button>
             }
