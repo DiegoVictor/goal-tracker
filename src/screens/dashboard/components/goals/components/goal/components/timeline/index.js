@@ -3,7 +3,6 @@ import { format } from 'date-fns';
 import {
   BsFillCalendar2CheckFill,
   BsFillCalendarWeekFill,
-  BsFillCalendarXFill,
 } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 
