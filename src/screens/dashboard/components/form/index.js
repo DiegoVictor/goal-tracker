@@ -102,6 +102,7 @@ function Form({ data, cancel, onSubmit }) {
 
         <InputGroup
           type="date"
+          data-testid="deadline"
           title="Deadline"
           value={goal.deadline}
           error={errors?.deadline}
@@ -120,7 +121,7 @@ function Form({ data, cancel, onSubmit }) {
           <button type="button" onClick={cancel}>
             <IoCloseOutline size={20} />
           </button>
-          <button type="submit">
+          <button type="submit" data-testid="submit">
             <IoIosSave size={18} />
           </button>
         </Footer>

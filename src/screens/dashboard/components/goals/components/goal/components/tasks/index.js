@@ -21,6 +21,7 @@ function Tasks({ goalId, items }) {
           {items.map((task) => (
             <Task
               title={task.title}
+              data-testid={`goal-${goalId}-task-${task.id}-done`}
               key={task.id}
               onClick={() => {
                 task.done = !task.done;

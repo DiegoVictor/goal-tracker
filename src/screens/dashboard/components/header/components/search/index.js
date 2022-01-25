@@ -21,7 +21,7 @@ function Search() {
 
     if (query.length > 0) {
       setRigth(
-        <Button type="button" onClick={() => setQuery('')}>
+        <Button type="button" onClick={() => setQuery('')} data-testid="clear">
           <IoIosClose size={36} color="#3b3c45" />
         </Button>
       );

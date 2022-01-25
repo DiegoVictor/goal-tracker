@@ -24,7 +24,7 @@ function Header() {
         <Container>
           <div>
             <FlexRight>
-              <Logout onClick={logout} title="Logout">
+              <Logout onClick={logout} title="Logout" data-testid="logout">
                 <IoIosLogOut size={22} color="#fff" />
               </Logout>
             </FlexRight>
@@ -38,7 +38,10 @@ function Header() {
             <Help text="You can mark a goal as done to check all subtasks automatically!" />
 
             <Center>
-              <AddButton onClick={() => setFormData(INITIAL_GOAL_STATE)}>
+              <AddButton
+                onClick={() => setFormData(INITIAL_GOAL_STATE)}
+                data-testid="add"
+              >
                 <IoIosAddCircle size={32} color="#fff" />
                 <span>Add new goal</span>
               </AddButton>

@@ -6,7 +6,7 @@ import { Container } from './styles';
 
 function Done({ value, onChange }) {
   return (
-    <Container onClick={() => onChange(!value)}>
+    <Container onClick={() => onChange(!value)} data-testid="done">
       <div>
         {value ? (
           <BsToggleOn size={30} color="#17d076" />

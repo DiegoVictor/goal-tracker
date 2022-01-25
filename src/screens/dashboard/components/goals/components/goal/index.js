@@ -18,7 +18,7 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
   const [goal] = useState(goals.find(({ id: goalId }) => goalId === id));
 
   return (
-    <Container done={done}>
+    <Container done={done} data-testid={`goal-${id}`}>
       <h4>{title}</h4>
       <Description>{description}</Description>
       <Tasks goalId={id} items={tasks} />
@@ -27,7 +27,7 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
       <Actions done={done}>
         <button
           type="button"
-          onClick={() =>
+          data-testid={`goal-${id}-done`}
             update(id, {
               done: !done,
               completedAt: !done ? new Date() : null,
@@ -52,7 +52,11 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
           >
             <RiEdit2Fill size={20} />
           </button>
-          <button type="button" onClick={() => remove(id)}>
+          <button
+            type="button"
+            data-testid={`goal-${id}-delete`}
+            onClick={() => remove(id)}
+          >
             <IoIosRemoveCircle size={20} />
           </button>
         </div>
