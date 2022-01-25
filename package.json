@@ -45,6 +45,9 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.2.1",
+    "@types/factory-girl": "^5.0.8",
+    "@types/faker": "^6.6.9",
+    "@types/jest": "^27.4.0",
     "babel-jest": "^27.4.6",
     "eslint": "^8.6.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -54,6 +57,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "factory-girl": "^5.0.4",
+    "faker": "5.5.3",
     "jest": "^27.4.7",
     "prettier": "^2.5.1"
   }
