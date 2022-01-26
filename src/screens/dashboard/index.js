@@ -21,7 +21,7 @@ export default function Dashboard() {
           ...data,
         });
       } else {
-        data.id = new Date().getTime();
+        data.id = Date.now();
         items.push(data);
       }
 

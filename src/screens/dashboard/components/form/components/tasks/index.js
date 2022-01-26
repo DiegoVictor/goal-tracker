@@ -106,7 +106,7 @@ function Tasks({ items, onChange }) {
               data-testid="submit-task"
               onClick={() => {
                 update((tasks) => {
-                  tasks.push({ id: new Date().getTime(), done: false, title });
+                  tasks.push({ id: Date.now(), done: false, title });
                   return tasks;
                 });
                 setTitle('');
