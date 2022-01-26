@@ -1,8 +1,12 @@
 # Goal Tracker
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fc275060-c266-4258-83b5-2865e6f335af/deploy-status)](https://app.netlify.com/sites/dreamy-turing-509fd6/deploys)
+[![Travis (.org)](https://img.shields.io/travis/DiegoVictor/goal-tracker?logo=travis&style=flat-square)](https://travis-ci.org/DiegoVictor/goal-tracker)
 [![react](https://img.shields.io/badge/reactjs-17.0.2-61dafb?style=flat-square&logo=react)](https://reactjs.org/)
 [![styled-components](https://img.shields.io/badge/styled_components-5.3.3-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
 [![eslint](https://img.shields.io/badge/eslint-8.6.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
 [![airbnb-style](https://flat.badgen.net/badge/style-guide/airbnb/ff5a5f?icon=airbnb)](https://github.com/airbnb/javascript)
+[![jest](https://img.shields.io/badge/jest-27.4.7-brightgreen?style=flat-square&logo=jest)](https://jestjs.io/)
+[![coverage](https://img.shields.io/codecov/c/gh/DiegoVictor/goal-tracker?logo=codecov&style=flat-square)](https://codecov.io/gh/DiegoVictor/goal-tracker)
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://raw.githubusercontent.com/DiegoVictor/goal-tracker/main/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
@@ -14,6 +18,8 @@ Log in with one email and start manage your goals, you can create, update or del
 * [Usage](#usage)
   * [Login](#login)
   * [localStorage](#localstorage)
+* [Running the tests](#running-the-tests)
+  * [Coverage Report](#coverage-report)
 
 # Screenshots
 Click to expand.<br>
@@ -80,3 +86,25 @@ The project saves your goals into a [localStorage](https://developer.mozilla.org
   ]
 }
 ```
+
+# Running the tests
+[Jest](https://jestjs.io) was the choice to test the app, to run:
+```
+$ yarn test
+```
+Or:
+```
+$ npm run test
+```
+
+## Coverage Report
+To generate/update the coverage report:
+```
+$ yarn coverage
+```
+Or:
+```
+$ npm run coverage
+```
+> You can see the coverage report inside `tests/coverage`.
+
