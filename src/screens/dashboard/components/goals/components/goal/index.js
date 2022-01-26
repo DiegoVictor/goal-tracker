@@ -41,6 +41,7 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
         <div>
           <button
             type="button"
+            data-testid={`goal-${id}-edit`}
             onClick={() =>
               setFormData({
                 ...goal,

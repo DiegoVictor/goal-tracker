@@ -40,6 +40,7 @@ function Tasks({ items, onChange }) {
                 <td>
                   <Button
                     type="button"
+                    data-testid={`tasks-${task.id}-done`}
                     onClick={() => {
                       update((tasks) => {
                         tasks[index].done = !tasks[index].done;
@@ -57,6 +58,7 @@ function Tasks({ items, onChange }) {
                 <td>
                   <input
                     type="text"
+                    data-testid={`tasks-${task.id}-title`}
                     value={task.title}
                     onChange={(event) => {
                       update((tasks) => {
@@ -69,6 +71,7 @@ function Tasks({ items, onChange }) {
                 <td>
                   <button
                     type="button"
+                    data-testid={`tasks-${task.id}-delete`}
                     onClick={() => {
                       update((tasks) => {
                         tasks.splice(index, 1);
@@ -88,6 +91,7 @@ function Tasks({ items, onChange }) {
       <Form>
         <Input
           type="text"
+          data-testid="task-input"
           placeholder="Task title"
           value={title}
           onChange={(event) => setTitle(event.target.value)}
@@ -99,6 +103,7 @@ function Tasks({ items, onChange }) {
           right={
             <Button
               type="button"
+              data-testid="submit-task"
               onClick={() => {
                 update((tasks) => {
                   tasks.push({ id: new Date().getTime(), done: false, title });

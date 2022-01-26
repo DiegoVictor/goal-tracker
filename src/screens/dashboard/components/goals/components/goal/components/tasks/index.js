@@ -43,7 +43,7 @@ function Tasks({ goalId, items }) {
           <Button
             open={showTasksDetails}
             onClick={() => setShowTasksDetails(!showTasksDetails)}
-            />
+            data-testid={`goal-${goalId}-tasks-details`}
           >
             <IoIosArrowDown size={15} />
           </Button>

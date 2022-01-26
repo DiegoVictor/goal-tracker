@@ -46,7 +46,7 @@ function Form({ data, cancel, onSubmit }) {
   );
 
   return (
-    <Container>
+    <Container data-testid="form">
       <form onSubmit={handleSubmit}>
         <div>
           <h3>Form</h3>
@@ -118,7 +118,7 @@ function Form({ data, cancel, onSubmit }) {
         <Tasks items={goal.tasks} onChange={setGoal} />
 
         <Footer>
-          <button type="button" onClick={cancel}>
+          <button type="button" onClick={cancel} data-testid="cancel">
             <IoCloseOutline size={20} />
           </button>
           <button type="submit" data-testid="submit">
