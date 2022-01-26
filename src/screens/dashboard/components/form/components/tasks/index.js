@@ -41,6 +41,7 @@ function Tasks({ items, onChange }) {
                   <Button
                     type="button"
                     data-testid={`tasks-${task.id}-done`}
+                    data-value={task.done}
                     onClick={() => {
                       update((tasks) => {
                         tasks[index].done = !tasks[index].done;

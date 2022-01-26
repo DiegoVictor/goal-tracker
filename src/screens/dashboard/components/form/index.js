@@ -30,7 +30,10 @@ function Form({ data, cancel, onSubmit }) {
       await schema
         .validate(goal, { abortEarly: false })
         .then(() => {
-          onSubmit(goal);
+          onSubmit({
+            ...goal,
+            deadline: new Date(goal.deadline),
+          });
         })
         .catch((err) => {
           const messages = {};
