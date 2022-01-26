@@ -35,7 +35,8 @@ function Timeline({ done, deadline, completedAt }) {
 
 Timeline.propTypes = {
   done: PropTypes.bool.isRequired,
-  deadline: PropTypes.string.isRequired,
+  deadline: PropTypes.oneOfType([PropTypes.string, PropTypes.objectOf(Date)])
+    .isRequired,
   completedAt: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.objectOf(Date),

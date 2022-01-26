@@ -77,7 +77,8 @@ Goal.propTypes = {
     PropTypes.string,
     PropTypes.objectOf(Date),
   ]),
-  deadline: PropTypes.string.isRequired,
+  deadline: PropTypes.oneOfType([PropTypes.string, PropTypes.objectOf(Date)])
+    .isRequired,
   tasks: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
