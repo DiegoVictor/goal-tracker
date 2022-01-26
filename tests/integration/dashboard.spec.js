@@ -253,7 +253,7 @@ describe('Dashboard', () => {
     const [goal] = goals;
     await act(async () => {
       fireEvent.change(getByPlaceholderText('Search'), {
-        target: { value: goal.title.slice(0, 5) },
+        target: { value: goal.title },
       });
     });
 
