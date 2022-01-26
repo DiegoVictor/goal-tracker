@@ -1,0 +1,10 @@
+language: node_js
+install:
+  - npm install
+  - npm install -g codecov
+node_js:
+  - 16
+script:
+  - yarn test
+  - yarn coverage
+  - codecov
