@@ -12,6 +12,8 @@
 
 Log in with one email and start manage your goals, you can create, update or delete goals, set deadlines, descriptions, search between them, create tasks to each goal and set the goals and tasks as done.
 
+Live Demo: https://goal-tracker-app.netlify.app/
+
 ## Table of Contents
 * [Screenshots](#screenshots)
 * [Installing](#installing)
@@ -97,14 +99,6 @@ Or:
 $ npm run test
 ```
 
-## Coverage Report
-To generate/update the coverage report:
-```
-$ yarn coverage
-```
-Or:
-```
-$ npm run coverage
-```
-> You can see the coverage report inside `tests/coverage`.
+## Coverage report
+You can see the coverage report inside `tests/coverage`. They are automatically created after the tests run.
 
