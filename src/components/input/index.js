@@ -12,17 +12,13 @@ function Input({ right, left, onChange, ...props }) {
     [onChange]
   );
 
-  if (right || left) {
-    return (
-      <Container>
-        {left && <Left>{left}</Left>}
-        <TextInput {...defaultProps} {...props} />
-        {right && <Right>{right}</Right>}
-      </Container>
-    );
-  }
-
-  return <TextInput {...defaultProps} {...props} />;
+  return (
+    <Container>
+      {left && <Left>{left}</Left>}
+      <TextInput {...defaultProps} {...props} />
+      {right && <Right>{right}</Right>}
+    </Container>
+  );
 }
 
 Input.propTypes = {

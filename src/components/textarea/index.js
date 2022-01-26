@@ -12,16 +12,12 @@ function TextArea({ left, onChange, ...props }) {
     [onChange]
   );
 
-  if (left) {
-    return (
-      <Container>
-        {left && <Left>{left}</Left>}
-        <Text {...defaultProps} {...props} />
-      </Container>
-    );
-  }
-
-  return <Text {...defaultProps} {...props} />;
+  return (
+    <Container>
+      {left && <Left>{left}</Left>}
+      <Text {...defaultProps} {...props} />
+    </Container>
+  );
 }
 
 TextArea.propTypes = {
