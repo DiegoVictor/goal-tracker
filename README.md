@@ -27,6 +27,7 @@ Live Demo: https://goal-tracker-app.netlify.app/
 Click to expand.<br>
 <img src="https://raw.githubusercontent.com/DiegoVictor/goal-tracker/master/screenshots/home.png" width="49%"/>
 <img src="https://raw.githubusercontent.com/DiegoVictor/goal-tracker/master/screenshots/dashboard.png" width="49%"/>
+<img src="https://raw.githubusercontent.com/DiegoVictor/goal-tracker/master/screenshots/form.png" width="49%"/>
 
 # Installing
 Easy peasy lemon squeezy:
