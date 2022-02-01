@@ -11,6 +11,22 @@ import { GoalsContextProvider } from '../../src/contexts/GoalsContext';
 
 jest.mock('react-router-dom');
 
+function setSession() {
+  const email = faker.internet.email().toLowerCase();
+  const userKey = SHA3(email).toString();
+  const location = {
+    state: {
+      key: userKey,
+    },
+  };
+  localStorage.setItem('current_session', userKey);
+
+  useLocation.mockClear();
+  useLocation.mockReturnValue(location);
+
+  return { userKey };
+}
+
 describe('Dashboard', () => {
   const navigate = jest.fn();
   useNavigate.mockReturnValue(navigate);
@@ -20,18 +36,7 @@ describe('Dashboard', () => {
   });
 
   it('should be able to log out ', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
+    const { userKey } = setSession();
 
     const { getByTestId } = render(
       <GoalsContextProvider>
@@ -40,21 +45,17 @@ describe('Dashboard', () => {
     );
 
     expect(localStorage).toHaveProperty('current_session', userKey);
-
-    const button = getByTestId(`logout`);
     await act(async () => {
-      fireEvent.click(button);
+      fireEvent.click(getByTestId('logout'));
     });
 
     expect(localStorage).not.toHaveProperty('current_session');
     expect(navigate).toHaveBeenCalledWith('/');
   });
 
-  it('should be redirected to home', async () => {
-    const location = {};
-
+  it('should be redirected to home when not logged in', async () => {
     useLocation.mockClear();
-    useLocation.mockReturnValue(location);
+    useLocation.mockReturnValue({});
 
     render(
       <GoalsContextProvider>
@@ -65,120 +66,11 @@ describe('Dashboard', () => {
     expect(navigate).toHaveBeenCalledWith('/');
   });
 
-  it('should be able to set goal as done', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
+  it('should be able to set goal as done and not done', async () => {
+    const { userKey } = setSession();
     const goal = await factory.attrs('Goal', { done: false, completedAt: '' });
-    localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
+    goal.tasks[0].done = false;
 
-    const { getByTestId } = render(
-      <GoalsContextProvider>
-        <Dashboard />
-      </GoalsContextProvider>
-    );
-    const button = getByTestId(`goal-${goal.id}-done`);
-    expect(button.getAttribute('data-value')).toBe('false');
-
-    await act(async () => {
-      fireEvent.click(button);
-    });
-
-    expect(button.getAttribute('data-value')).toBe('true');
-
-    expect(JSON.parse(localStorage.getItem(userKey))).toStrictEqual({
-      goals: [
-        {
-          ...goal,
-          tasks: goal.tasks.map((task) => {
-            if (task.completedAt) {
-              task.completedAt = task.completedAt.toISOString();
-            }
-            task.done = true;
-            return task;
-          }),
-          deadline: goal.deadline.toISOString(),
-          done: true,
-          completedAt: expect.any(String),
-        },
-      ],
-    });
-  });
-
-  it('should be able to unset goal as done', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const goal = await factory.attrs('Goal', {
-      done: true,
-      completedAt: faker.date.past,
-    });
-    localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
-
-    const { getByTestId } = render(
-      <GoalsContextProvider>
-        <Dashboard />
-      </GoalsContextProvider>
-    );
-    const button = getByTestId(`goal-${goal.id}-done`);
-    expect(button.getAttribute('data-value')).toBe('true');
-
-    await act(async () => {
-      fireEvent.click(button);
-    });
-
-    expect(button.getAttribute('data-value')).toBe('false');
-
-    expect(JSON.parse(localStorage.getItem(userKey))).toStrictEqual({
-      goals: [
-        {
-          ...goal,
-          tasks: goal.tasks.map((task) => {
-            if (task.completedAt) {
-              task.completedAt = task.completedAt.toISOString();
-            }
-            return task;
-          }),
-          deadline: goal.deadline.toISOString(),
-          done: false,
-          completedAt: expect.any(String),
-        },
-      ],
-    });
-  });
-
-  it('should be able to invert task status', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const goal = await factory.attrs('Goal');
     localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
 
     const { getByTestId } = render(
@@ -188,28 +80,83 @@ describe('Dashboard', () => {
     );
 
     const [task] = goal.tasks;
+    const taskDoneButton = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
+    expect(taskDoneButton.getAttribute('data-value')).toBe('false');
+
+    const goalDoneButton = getByTestId(`goal-${goal.id}-done`);
+    expect(goalDoneButton.getAttribute('data-value')).toBe('false');
+    await act(async () => {
+      fireEvent.click(goalDoneButton);
+    });
+
+    expect(goalDoneButton.getAttribute('data-value')).toBe('true');
+    expect(taskDoneButton.getAttribute('data-value')).toBe('true');
+
+    const expected = {
+      ...goal,
+      tasks: [
+        {
+          ...task,
+          done: true,
+          completedAt: expect.any(String),
+        },
+      ],
+      deadline: goal.deadline.toISOString(),
+      done: true,
+      completedAt: expect.any(String),
+    };
+    expect(JSON.parse(localStorage.getItem(userKey))).toStrictEqual({
+      goals: [expected],
+    });
+
+    await act(async () => {
+      fireEvent.click(goalDoneButton);
+    });
+
+    expect(goalDoneButton.getAttribute('data-value')).toBe('false');
+
+    expected.done = false;
+    expect(JSON.parse(localStorage.getItem(userKey))).toStrictEqual({
+      goals: [expected],
+    });
+  });
+
+  it("should be able to change goal's task status", async () => {
+    const { userKey } = setSession();
+
+    const goal = await factory.attrs('Goal');
+    localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
+
+    const { getByTestId, getByText } = render(
+      <GoalsContextProvider>
+        <Dashboard />
+      </GoalsContextProvider>
+    );
+
+    const [task] = goal.tasks;
+
     const button = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
     expect(button.getAttribute('data-value')).toBe(task.done.toString());
+    await act(async () => {
+      fireEvent.click(button);
+    });
+    expect(button.getAttribute('data-value')).toBe((!task.done).toString());
+
+    await act(async () => {
+      fireEvent.click(getByTestId(`goal-${goal.id}-tasks-details`));
+    });
+    expect(getByText(task.title)).toBeInTheDocument();
 
     await act(async () => {
       fireEvent.click(button);
     });
 
-    expect(button.getAttribute('data-value')).toBe((!task.done).toString());
+    const div = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
+    expect(div.getAttribute('data-value')).toBe(task.done.toString());
   });
 
   it('should be able to delete a goal', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
+    const { userKey } = setSession();
 
     const goal = await factory.attrs('Goal');
     localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
@@ -220,168 +167,59 @@ describe('Dashboard', () => {
       </GoalsContextProvider>
     );
 
-    const button = getByTestId(`goal-${goal.id}-delete`);
     await act(async () => {
-      fireEvent.click(button);
+      fireEvent.click(getByTestId(`goal-${goal.id}-delete`));
     });
 
     expect(queryByTestId(`goal-${goal.id}`)).not.toBeInTheDocument();
   });
 
   it('should be able to search goals', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
+    const { userKey } = setSession();
 
     const goals = await factory.attrsMany('Goal', 2);
     localStorage.setItem(userKey, JSON.stringify({ goals }));
 
-    const { queryByTestId, getByPlaceholderText } = render(
+    const { queryByTestId, getByTestId, getByPlaceholderText } = render(
       <GoalsContextProvider>
         <Dashboard />
       </GoalsContextProvider>
     );
 
-    const [goal] = goals;
+    const [goal, ...rest] = goals;
+
     await act(async () => {
       fireEvent.change(getByPlaceholderText('Search'), {
         target: { value: goal.title },
       });
     });
 
-    goals.slice(1).forEach(({ id }) => {
+    expect(getByTestId(`goal-${goal.id}`)).toBeInTheDocument();
+    rest.forEach(({ id }) => {
       expect(queryByTestId(`goal-${id}`)).not.toBeInTheDocument();
     });
-  });
-
-  it('should be able to cancel the search', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const goals = await factory.attrsMany('Goal', 2);
-    localStorage.setItem(userKey, JSON.stringify({ goals }));
-
-    const { getByTestId, getByPlaceholderText } = render(
-      <GoalsContextProvider>
-        <Dashboard />
-      </GoalsContextProvider>
-    );
-
-    const input = getByPlaceholderText('Search');
-    const text = faker.lorem.word(2);
-    await act(async () => {
-      fireEvent.change(input, {
-        target: { value: text },
-      });
-    });
-
-    expect(input.value).toBe(text);
 
     await act(async () => {
       fireEvent.click(getByTestId('clear'));
     });
-
-    expect(input.value).toBe('');
-  });
-
-  it('should be able to get goals list', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const goals = await factory.attrsMany('Goal', 2, [
-      {
-        done: true,
-        completedAt: faker.date.past(),
-      },
-      { done: false },
-    ]);
-    localStorage.setItem(userKey, JSON.stringify({ goals }));
-
-    const { getByText, getByTestId } = render(
-      <GoalsContextProvider>
-        <Dashboard />
-      </GoalsContextProvider>
-    );
-
-    await goals.reduce(async (promise, goal) => {
-      promise.then(() =>
-        act(async () =>
-          fireEvent.click(getByTestId(`goal-${goal.id}-tasks-details`))
-        )
-      );
-      return promise;
-    }, Promise.resolve());
-
-    goals.forEach((goal) => {
-      expect(getByText(goal.title)).toBeInTheDocument();
-      expect(getByText(goal.description)).toBeInTheDocument();
-      expect(
-        getByText(format(new Date(goal.deadline), 'do, MMM yy'))
-      ).toBeInTheDocument();
-
-      const button = getByTestId(`goal-${goal.id}-done`);
-      expect(button.getAttribute('data-value')).toBe(goal.done.toString());
-
-      if (goal.done) {
-        expect(
-          getByText(format(new Date(goal.completedAt), 'do, MMM yy'))
-        ).toBeInTheDocument();
-      }
-
-      goal.tasks.forEach((task) => {
-        const div = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
-
-        expect(getByText(task.title)).toBeInTheDocument();
-        expect(div.getAttribute('data-value')).toBe(task.done.toString());
-      });
+    goals.forEach(({ id }) => {
+      expect(getByTestId(`goal-${id}`)).toBeInTheDocument();
     });
   });
 
   it('should be able to create a goal', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
+    setSession();
 
     const goal = await factory.attrs('Goal', {
       done: true,
-      completedAt: faker.date.past(),
+      completedAt: faker.date.past,
     });
 
-    jest.spyOn(Date, 'now').mockImplementationOnce(() => goal.id);
+    const [task] = goal.tasks;
+    jest
+      .spyOn(Date, 'now')
+      .mockImplementationOnce(() => task.id)
+      .mockImplementationOnce(() => goal.id);
 
     const { getByTestId, getByPlaceholderText, getByText } = render(
       <GoalsContextProvider>
@@ -393,7 +231,25 @@ describe('Dashboard', () => {
       fireEvent.click(getByTestId(`add`));
     });
 
-    fireEvent.click(getByTestId('done'));
+    fireEvent.change(getByTestId('task-input'), {
+      target: { value: task.title },
+    });
+    await act(async () => {
+      fireEvent.click(getByTestId('submit-task'));
+    });
+
+    const taskDoneButton = getByTestId(`tasks-${task.id}-done`);
+    expect(taskDoneButton.getAttribute('data-value')).toBe('false');
+    await act(async () => {
+      fireEvent.click(getByTestId('done'));
+    });
+    expect(taskDoneButton.getAttribute('data-value')).toBe('true');
+
+    const deadline = goal.deadline.toISOString().slice(0, 10);
+    fireEvent.change(getByTestId('deadline'), {
+      target: { value: deadline },
+    });
+
     fireEvent.change(getByPlaceholderText('Update that beautiful report'), {
       target: { value: goal.title },
     });
@@ -401,53 +257,37 @@ describe('Dashboard', () => {
       target: { value: goal.description },
     });
 
-    const date = goal.deadline.toISOString().slice(0, 10);
-    fireEvent.change(getByTestId('deadline'), {
-      target: { value: date },
-    });
-
     await act(async () => {
       fireEvent.click(getByTestId('submit'));
     });
-
     await waitFor(() => getByText(goal.title));
 
     expect(getByText(goal.title)).toBeInTheDocument();
     expect(getByText(goal.description)).toBeInTheDocument();
     expect(
-      getByText(format(new Date(`${date}T00:00:00.000Z`), 'do, MMM yy'))
+      getByText(format(new Date(`${deadline}T00:00:00.000Z`), 'do, MMM yy'))
     ).toBeInTheDocument();
-
-    const button = getByTestId(`goal-${goal.id}-done`);
-    expect(button.getAttribute('data-value')).toBe('true');
-
     expect(getByText(format(new Date(), 'do, MMM yy'))).toBeInTheDocument();
+
+    const goalDoneButton = getByTestId(`goal-${goal.id}-done`);
+    expect(goalDoneButton.getAttribute('data-value')).toBe('true');
   });
 
   it('should be able to edit a goal', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
+    const { userKey } = setSession();
 
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
+    const [goal, { title, description, deadline, tasks }] =
+      await factory.attrsMany('Goal', 2, [
+        {
+          done: true,
+          completedAt: faker.date.past,
+        },
+      ]);
+    goal.tasks[0].done = true;
+    localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
 
-    const [old, goal] = await factory.attrsMany('Goal', 2, [
-      {
-        done: true,
-        completedAt: faker.date.past(),
-      },
-    ]);
-    old.tasks[0].done = true;
-
-    localStorage.setItem(userKey, JSON.stringify({ goals: [old] }));
-
-    jest.spyOn(Date, 'now').mockImplementationOnce(() => old.tasks[0].id);
+    const [task] = goal.tasks;
+    jest.spyOn(Date, 'now').mockImplementationOnce(() => task.id);
 
     const { getByTestId, getByPlaceholderText, getByText, queryByTestId } =
       render(
@@ -456,26 +296,24 @@ describe('Dashboard', () => {
         </GoalsContextProvider>
       );
 
-    await waitFor(() => getByText(old.title));
-
+    await waitFor(() => getByText(goal.title));
     await act(async () => {
-      fireEvent.click(getByTestId(`goal-${old.id}-edit`));
+      fireEvent.click(getByTestId(`goal-${goal.id}-edit`));
     });
 
     fireEvent.click(getByTestId('done'));
     fireEvent.change(getByPlaceholderText('Update that beautiful report'), {
-      target: { value: goal.title },
+      target: { value: title },
     });
     fireEvent.change(getByPlaceholderText('Update my report about...'), {
-      target: { value: goal.description },
+      target: { value: description },
     });
 
-    const date = goal.deadline.toISOString().slice(0, 10);
+    const date = deadline.toISOString().slice(0, 10);
     fireEvent.change(getByTestId('deadline'), {
       target: { value: date },
     });
 
-    const [task] = old.tasks;
     expect(
       getByTestId(`tasks-${task.id}-done`).getAttribute('data-value')
     ).toBe('true');
@@ -485,140 +323,53 @@ describe('Dashboard', () => {
       getByTestId(`tasks-${task.id}-done`).getAttribute('data-value')
     ).toBe('false');
 
-    fireEvent.change(getByTestId(`tasks-${task.id}-title`), {
-      target: { value: goal.tasks[0].title },
+    const taskText = getByTestId(`tasks-${task.id}-title`);
+    fireEvent.change(taskText, {
+      target: { value: tasks[0].title },
     });
-    expect(getByTestId(`tasks-${task.id}-title`).value).toBe(
-      goal.tasks[0].title
-    );
+    expect(taskText.value).toBe(tasks[0].title);
 
     fireEvent.click(getByTestId(`tasks-${task.id}-delete`));
-
-    const title = faker.name.title();
-    fireEvent.change(getByTestId('task-input'), { target: { value: title } });
-
     expect(queryByTestId(`tasks-${task.id}-title`)).not.toBeInTheDocument();
+
+    const taskTitle = faker.name.title();
+    fireEvent.change(getByTestId('task-input'), {
+      target: { value: taskTitle },
+    });
+
     fireEvent.keyDown(getByTestId('task-input'), { keyCode: 13 });
     expect(queryByTestId(`tasks-${task.id}-title`)).not.toBeInTheDocument();
 
     fireEvent.click(getByTestId('submit-task'));
-
-    expect(queryByTestId(`tasks-${task.id}-title`).value).toBe(title);
+    expect(queryByTestId(`tasks-${task.id}-title`).value).toBe(taskTitle);
 
     await act(async () => {
       fireEvent.click(getByTestId('submit'));
     });
 
-    await waitFor(() => getByText(goal.title));
+    await waitFor(() => getByText(title));
 
-    expect(getByTestId(`goal-${old.id}`)).toBeInTheDocument();
-    expect(getByText(goal.title)).toBeInTheDocument();
-    expect(getByText(goal.description)).toBeInTheDocument();
+    expect(getByTestId(`goal-${goal.id}`)).toBeInTheDocument();
+    expect(getByText(title)).toBeInTheDocument();
+    expect(getByText(description)).toBeInTheDocument();
     expect(
       getByText(format(new Date(`${date}T00:00:00.000Z`), 'do, MMM yy'))
     ).toBeInTheDocument();
 
-    const button = getByTestId(`goal-${old.id}-done`);
+    const button = getByTestId(`goal-${goal.id}-done`);
     expect(button.getAttribute('data-value')).toBe('false');
   });
 
-  it('should be able to set tasks as done when the goal is set as done', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
+  it('should not be able to create goal with invalid data', async () => {
+    setSession();
 
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const goal = await factory.attrs('Goal', { done: false });
-    goal.tasks[0].done = false;
-
-    localStorage.setItem(userKey, JSON.stringify({ goals: [goal] }));
-
-    const { getByTestId, getByText } = render(
+    const { getByTestId, getByText, queryByTestId } = render(
       <GoalsContextProvider>
         <Dashboard />
       </GoalsContextProvider>
     );
 
-    await waitFor(() => getByText(goal.title));
-
-    await act(async () => {
-      fireEvent.click(getByTestId(`goal-${goal.id}-edit`));
-    });
-
-    const [task] = goal.tasks;
-    expect(
-      getByTestId(`tasks-${task.id}-done`).getAttribute('data-value')
-    ).toBe('false');
-
-    fireEvent.click(getByTestId('done'));
-
-    expect(getByTestId(`done`).getAttribute('data-value')).toBe('true');
-    expect(
-      getByTestId(`tasks-${task.id}-done`).getAttribute('data-value')
-    ).toBe('true');
-  });
-
-  it('should be able to cancel goal creation', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const { queryByTestId, getByTestId } = render(
-      <GoalsContextProvider>
-        <Dashboard />
-      </GoalsContextProvider>
-    );
-
-    await act(async () => {
-      fireEvent.click(getByTestId(`add`));
-    });
-
-    expect(getByTestId('form')).toBeInTheDocument();
-
-    await act(async () => {
-      fireEvent.click(getByTestId('cancel'));
-    });
-    expect(queryByTestId('form')).not.toBeInTheDocument();
-  });
-
-  it('should be able to get validation messages', async () => {
-    const email = faker.internet.email().toLowerCase();
-    const userKey = SHA3(email).toString();
-    const location = {
-      state: {
-        key: userKey,
-      },
-    };
-    localStorage.setItem('current_session', userKey);
-
-    useLocation.mockClear();
-    useLocation.mockReturnValue(location);
-
-    const { getByTestId, getByText } = render(
-      <GoalsContextProvider>
-        <Dashboard />
-      </GoalsContextProvider>
-    );
-
-    await act(async () => {
-      fireEvent.click(getByTestId(`add`));
-    });
-
+    fireEvent.click(getByTestId(`add`));
     await act(async () => {
       fireEvent.click(getByTestId('submit'));
     });
@@ -629,5 +380,10 @@ describe('Dashboard', () => {
       getByText('The title must has at least 3 characters')
     ).toBeInTheDocument();
     expect(getByText('Please select a deadline date')).toBeInTheDocument();
+
+    await act(async () => {
+      fireEvent.click(getByTestId('cancel'));
+    });
+    expect(queryByTestId('form')).not.toBeInTheDocument();
   });
 });
