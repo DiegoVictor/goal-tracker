@@ -8,19 +8,22 @@ import { RiEdit2Fill } from 'react-icons/ri';
 import PropTypes from 'prop-types';
 
 import { GoalsContext } from 'contexts/GoalsContext';
+import { FormContext } from 'contexts/FormContext';
 
 import Tasks from './components/tasks';
 import Timeline from './components/timeline';
 import { Actions, Container, Description } from './styles';
 
 function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
-  const { goals, setFormData, update, remove } = useContext(GoalsContext);
+  const { goals, update, remove } = useContext(GoalsContext);
+  const { setFormData } = useContext(FormContext);
   const [goal] = useState(goals.find(({ id: goalId }) => goalId === id));
 
   return (
     <Container done={done} data-testid={`goal-${id}`}>
       <h4>{title}</h4>
       <Description>{description}</Description>
+
       <Tasks goalId={id} items={tasks} />
       <Timeline done={done} completedAt={completedAt} deadline={deadline} />
 

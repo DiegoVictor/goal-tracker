@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const Container = styled.div`
   min-width: 450px;
@@ -50,5 +50,11 @@ export const Footer = styled.div`
     margin: auto 5px;
     padding: 10px;
     width: 40px;
+  }
+`;
+
+export const PreventScroll = createGlobalStyle`
+  body {
+    overflow: hidden;
   }
 `;
