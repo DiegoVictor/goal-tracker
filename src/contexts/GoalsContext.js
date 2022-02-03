@@ -2,15 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export const INITIAL_GOAL_STATE = {
-  title: '',
-  description: '',
-  deadline: '',
-  tasks: [],
-  done: false,
-  completedAt: '',
-};
-
 export const GoalsContext = React.createContext({
   userData: { goals: [] },
 });
@@ -95,19 +86,16 @@ export function GoalsContextProvider({ children }) {
     [userData]
   );
 
-  const [formData, setFormData] = useState(null);
   const context = useMemo(
     () => ({
       goals,
-      formData,
-      setFormData,
       userData,
       setUserData,
       reList,
       update,
       remove,
     }),
-    [goals, userData, formData]
+    [goals, userData]
   );
 
   return (

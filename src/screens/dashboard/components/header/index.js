@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Subtitle } from 'components/subtitle/styles';
 import { Center, FlexRight, Orange } from 'styles/commons';
 import HelpText from 'components/help-text';
-import { GoalsContext, INITIAL_GOAL_STATE } from 'contexts/GoalsContext';
 
+import { FormContext, INITIAL_GOAL_STATE } from 'contexts/FormContext';
 import Search from './components/search';
 
 import { AddButton, Container, Logout } from './styles';
@@ -19,7 +19,7 @@ function Header() {
   }, []);
 
   return (
-    <GoalsContext.Consumer>
+    <FormContext.Consumer>
       {({ setFormData }) => (
         <Container>
           <div>
@@ -49,7 +49,7 @@ function Header() {
           </div>
         </Container>
       )}
-    </GoalsContext.Consumer>
+    </FormContext.Consumer>
   );
 }
 
