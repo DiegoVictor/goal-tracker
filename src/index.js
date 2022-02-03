@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Style } from 'styles/global';
+import { Theme } from 'styles/theme';
 import Navigation from 'navigation';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Style />
+    <Theme />
     <Navigation />
   </React.StrictMode>,
   document.getElementById('root')
