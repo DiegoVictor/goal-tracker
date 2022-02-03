@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
-function Help({ text, ...props }) {
+function HelpText({ text, ...props }) {
   return (
     <Container {...props}>
       <span>{text}</span>
@@ -11,12 +11,12 @@ function Help({ text, ...props }) {
   );
 }
 
-Help.propTypes = {
+HelpText.propTypes = {
   text: PropTypes.string,
 };
 
-Help.defaultProps = {
+HelpText.defaultProps = {
   text: '',
 };
 
-export default Help;
+export default HelpText;

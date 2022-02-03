@@ -6,7 +6,7 @@ import { SHA3 } from 'crypto-js';
 
 import Input from 'components/input';
 import Button from 'components/button';
-import Help from 'components/help';
+import HelpText from 'components/help-text';
 import Error from 'components/error';
 
 import Welcome from './components/welcome';
@@ -24,7 +24,7 @@ export default function Home() {
 
   const defaultHelpText = useMemo(
     () => (
-      <Help text="Your email will not be used to any kind of ads, just to keep your goals stored" />
+      <HelpText text="Your email will not be used to any kind of ads, just to keep your goals stored" />
     ),
     []
   );

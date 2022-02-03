@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Subtitle } from 'components/subtitle/styles';
 import { Center, FlexRight, Orange } from 'styles/commons';
-import Help from 'components/help';
+import HelpText from 'components/help-text';
 import { GoalsContext, INITIAL_GOAL_STATE } from 'contexts/GoalsContext';
 
 import Search from './components/search';
@@ -35,7 +35,7 @@ function Header() {
             <Subtitle>List</Subtitle>
 
             <Search />
-            <Help text="You can mark a goal as done to check all subtasks automatically!" />
+            <HelpText text="You can mark a goal as done to check all subtasks automatically!" />
 
             <Center>
               <AddButton
