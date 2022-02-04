@@ -12,7 +12,6 @@ export const INITIAL_GOAL_STATE = {
 
 export const FormContext = React.createContext({
   formData: {},
-  setFormData: () => {},
 });
 
 export function FormContextProvider({ children }) {
