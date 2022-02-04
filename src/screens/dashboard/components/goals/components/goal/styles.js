@@ -66,3 +66,29 @@ export const Actions = styled.div`
     }
   }
 `;
+
+export const Tasks = styled.div`
+  margin-top: ${(props) => (props.open ? '15px' : '5px')};
+
+  > div {
+    display: ${(props) => (props.open ? 'block' : 'flex')};
+  }
+`;
+
+export const Button = styled.div`
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  margin-left: 3px;
+  margin-top: 3px;
+  width: 20px;
+
+  ${(props) =>
+    props.open &&
+    css`
+      margin-left: -1px;
+      transform: rotate(180deg);
+    `}
+`;

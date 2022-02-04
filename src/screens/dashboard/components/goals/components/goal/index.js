@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
+  IoIosArrowDown,
   IoIosCheckbox,
   IoIosRemoveCircle,
   IoMdSquareOutline,
@@ -10,21 +11,47 @@ import PropTypes from 'prop-types';
 import { GoalsContext } from 'contexts/GoalsContext';
 import { FormContext } from 'contexts/FormContext';
 
-import Tasks from './components/tasks';
 import Timeline from './components/timeline';
-import { Actions, Container, Description } from './styles';
+import Task from './components/task';
+import { Actions, Container, Description, Tasks, Button } from './styles';
 
 function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
   const { goals, update, remove } = useContext(GoalsContext);
   const { setFormData } = useContext(FormContext);
+
   const [goal] = useState(goals.find(({ id: goalId }) => goalId === id));
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
     <Container done={done} data-testid={`goal-${id}`}>
       <h4>{title}</h4>
       <Description>{description}</Description>
 
-      <Tasks goalId={id} items={tasks} />
+      <Tasks open={showDetails}>
+        {tasks.length > 0 && (
+          <div>
+            {tasks.map((task) => (
+              <Task
+                data={task}
+                showDetails={showDetails}
+                key={task.id}
+                onClick={() => {
+                  task.done = !task.done;
+                  update(id, { tasks });
+                }}
+              />
+            ))}
+            <Button
+              open={showDetails}
+              onClick={() => setShowDetails(!showDetails)}
+              data-testid={`goal-${id}-tasks-details`}
+            >
+              <IoIosArrowDown size={15} />
+            </Button>
+          </div>
+        )}
+      </Tasks>
+
       <Timeline done={done} completedAt={completedAt} deadline={deadline} />
 
       <Actions done={done}>

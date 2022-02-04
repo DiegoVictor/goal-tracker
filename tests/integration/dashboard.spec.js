@@ -80,7 +80,7 @@ describe('Dashboard', () => {
     );
 
     const [task] = goal.tasks;
-    const taskDoneButton = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
+    const taskDoneButton = getByTestId(`task-${task.id}-done`);
     expect(taskDoneButton.getAttribute('data-value')).toBe('false');
 
     const goalDoneButton = getByTestId(`goal-${goal.id}-done`);
@@ -135,7 +135,7 @@ describe('Dashboard', () => {
 
     const [task] = goal.tasks;
 
-    const button = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
+    const button = getByTestId(`task-${task.id}-done`);
     expect(button.getAttribute('data-value')).toBe(task.done.toString());
     await act(async () => {
       fireEvent.click(button);
@@ -151,7 +151,7 @@ describe('Dashboard', () => {
       fireEvent.click(button);
     });
 
-    const div = getByTestId(`goal-${goal.id}-task-${task.id}-done`);
+    const div = getByTestId(`task-${task.id}-done`);
     expect(div.getAttribute('data-value')).toBe(task.done.toString());
   });
 
