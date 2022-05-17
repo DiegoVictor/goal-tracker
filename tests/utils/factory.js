@@ -1,11 +1,11 @@
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import factory from 'factory-girl';
 
 factory.define('Goal', {}, () => {
   const done = faker.datatype.boolean();
   return {
     id: () => faker.date.past().getTime(),
-    title: faker.name.title,
+    title: faker.lorem.words,
     description: faker.lorem.sentence,
     deadline: faker.date.future,
     done,
@@ -13,7 +13,7 @@ factory.define('Goal', {}, () => {
     tasks: [
       {
         id: () => faker.date.past().getTime(),
-        title: faker.name.title,
+        title: faker.lorem.words,
         done,
         completedAt: () => (done ? faker.date.past() : ''),
       },

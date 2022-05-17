@@ -1,6 +1,6 @@
 import React from 'react';
 import { act, fireEvent, render } from '@testing-library/react';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import { SHA3 } from 'crypto-js';
 import { useNavigate } from 'react-router-dom';
 

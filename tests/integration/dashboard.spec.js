@@ -2,7 +2,7 @@ import React from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { format } from 'date-fns';
 import { useLocation, useNavigate } from 'react-router-dom';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import { SHA3 } from 'crypto-js';
 
 import factory from '../utils/factory';
@@ -332,7 +332,7 @@ describe('Dashboard', () => {
     fireEvent.click(getByTestId(`tasks-${task.id}-delete`));
     expect(queryByTestId(`tasks-${task.id}-title`)).not.toBeInTheDocument();
 
-    const taskTitle = faker.name.title();
+    const taskTitle = faker.lorem.words();
     fireEvent.change(getByTestId('task-input'), {
       target: { value: taskTitle },
     });
