@@ -1,6 +1,6 @@
 # Goal Tracker
 [![Netlify Status](https://api.netlify.com/api/v1/badges/fc275060-c266-4258-83b5-2865e6f335af/deploy-status)](https://app.netlify.com/sites/goal-tracker-app/deploys)
-[![Build Status](https://img.shields.io/travis/com/DiegoVictor/goal-tracker.svg?branch=main&logo=travis&style=flat-square)](https://app.travis-ci.com/DiegoVictor/goal-tracker)
+[![AppVeyor](https://img.shields.io/appveyor/build/diegovictor/goal-tracker?logo=appveyor&style=flat-square)](https://ci.appveyor.com/project/DiegoVictor/goal-tracker)
 [![react](https://img.shields.io/badge/reactjs-17.0.2-61dafb?style=flat-square&logo=react)](https://reactjs.org/)
 [![styled-components](https://img.shields.io/badge/styled_components-5.3.3-db7b86?style=flat-square&logo=styled-components)](https://styled-components.com/)
 [![eslint](https://img.shields.io/badge/eslint-8.6.0-4b32c3?style=flat-square&logo=eslint)](https://eslint.org/)
