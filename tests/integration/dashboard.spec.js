@@ -2,7 +2,7 @@ import React from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { format } from 'date-fns';
 import { useLocation, useNavigate } from 'react-router-dom';
-import faker from '@faker-js/faker';
+import { faker } from '@faker-js/faker';
 import { SHA3 } from 'crypto-js';
 
 import factory from '../utils/factory';
