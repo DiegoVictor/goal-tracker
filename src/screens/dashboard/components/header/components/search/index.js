@@ -34,7 +34,7 @@ function Search() {
     <Input
       type="text"
       placeholder="Search"
-      maxlength="255"
+      maxLength="255"
       value={query}
       right={right}
       onChange={(event) => setQuery(event.target.value)}
