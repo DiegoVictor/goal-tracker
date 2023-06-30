@@ -19,7 +19,7 @@ export const Container = styled.div`
     > div {
       align-items: center;
       background-color: ${(props) =>
-        props.done ? 'rgba(255,255,255,0.5)' : 'rgba(43, 44, 51, 1)'};
+        props.$done ? 'rgba(255,255,255,0.5)' : 'rgba(43, 44, 51, 1)'};
       border-radius: 4px;
       display: flex;
       font-size: 14px;

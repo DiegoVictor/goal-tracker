@@ -23,7 +23,7 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <Container done={done} data-testid={`goal-${id}`}>
+    <Container $done={done} data-testid={`goal-${id}`}>
       <h4>{title}</h4>
       <Description>{description}</Description>
 
@@ -54,7 +54,7 @@ function Goal({ id, title, description, done, completedAt, deadline, tasks }) {
 
       <Timeline done={done} completedAt={completedAt} deadline={deadline} />
 
-      <Actions done={done}>
+      <Actions>
         <button
           type="button"
           data-testid={`goal-${id}-done`}

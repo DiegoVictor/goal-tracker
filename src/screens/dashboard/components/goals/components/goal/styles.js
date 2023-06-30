@@ -14,7 +14,7 @@ export const Container = styled.div`
   padding: 15px;
 
   ${(props) =>
-    props.done &&
+    props.$done &&
     css`
       background: linear-gradient(
         49deg,

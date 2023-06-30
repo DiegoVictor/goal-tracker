@@ -10,7 +10,7 @@ import { Container } from './styles';
 
 function Timeline({ done, deadline, completedAt }) {
   return (
-    <Container done={done}>
+    <Container $done={done}>
       <div>
         <span>Deadline</span>
         <div>
