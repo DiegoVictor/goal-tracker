@@ -2,6 +2,7 @@ version: 1.0.{build}
 image: Ubuntu2204
 install:
   - sh: npm ci
+build: off
 test_script:
   - sh: npm run test
 on_success:
